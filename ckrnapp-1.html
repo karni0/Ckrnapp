@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#080a0f">
+<meta name="mobile-web-app-capable" content="yes">
+<title>CKRNapp</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23080a0f'/%3E%3Crect x='32' y='32' width='448' height='448' rx='72' fill='none' stroke='%2300b4a0' stroke-width='6' opacity='0.3'/%3E%3Ctext x='256' y='255' font-family='Arial Black, sans-serif' font-size='150' font-weight='900' fill='%2300d4bc' text-anchor='middle' letter-spacing='-4'%3EKRN%3C/text%3E%3Ctext x='256' y='360' font-family='Arial, sans-serif' font-size='56' font-weight='700' fill='%23f0b429' text-anchor='middle' letter-spacing='8'%3ECRÉDITOS%3C/text%3E%3Ccircle cx='256' cy='420' r='8' fill='%2300b4a0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23080a0f'/%3E%3Ctext x='256' y='255' font-family='Arial Black, sans-serif' font-size='150' font-weight='900' fill='%2300d4bc' text-anchor='middle' letter-spacing='-4'%3EKRN%3C/text%3E%3Ctext x='256' y='360' font-family='Arial, sans-serif' font-size='56' font-weight='700' fill='%23f0b429' text-anchor='middle' letter-spacing='8'%3ECRÉDITOS%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22CKRNapp%22%2C%22short_name%22%3A%22CKRN%22%2C%22start_url%22%3A%22ckrnapp-1.html%22%2C%22scope%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23080a0f%22%2C%22theme_color%22%3A%22%23080a0f%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520512%2520512%2527%253E%253Crect%2520width%253D%2527512%2527%2520height%253D%2527512%2527%2520rx%253D%252796%2527%2520fill%253D%2527%2523080a0f%2527%252F%253E%253Ctext%2520x%253D%2527256%2527%2520y%253D%2527290%2527%2520font-family%253D%2527Arial%2520Black%2527%2520font-size%253D%2527180%2527%2520font-weight%253D%2527900%2527%2520fill%253D%2527%252300d4bc%2527%2520text-anchor%253D%2527middle%2527%253EKRN%253C%252Ftext%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080a0f;--s1:#0f1218;--s2:#161c26;--s3:#1e2535;--border:#252d3d;
+  --teal:#00b4a0;--teal2:#00d4bc;--teal-light:#e6faf8;
+  --gold:#f0b429;--blue:#3b82f6;--green:#10b981;--red:#ef4444;--orange:#f97316;
+  --text:#e2e8f0;--muted:#64748b;--r:14px;
+  --l1:#3b82f6;--l2:#f0b429;--l3:#10b981;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;display:flex;flex-direction:column;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 0%,rgba(0,180,160,0.08) 0%,transparent 60%),radial-gradient(ellipse 50% 30% at 80% 100%,rgba(240,180,41,0.05) 0%,transparent 60%);pointer-events:none;z-index:0;}
+#loginScreen{position:fixed;inset:0;background:var(--bg);z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;transition:opacity .3s;}
+#loginScreen.hidden{opacity:0;pointer-events:none;}
+.login-logo{font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:4px;background:linear-gradient(135deg,#fff 0%,var(--teal) 50%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fadeDown .6s ease;}
+.login-sub{font-size:0.72rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:48px;animation:fadeDown .6s .1s ease both;}
+.login-field{width:100%;max-width:320px;margin-bottom:16px;animation:fadeUp .5s .2s ease both;}
+.login-field label{display:block;font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.login-input{width:100%;background:var(--s2);border:1.5px solid var(--border);border-radius:var(--r);padding:14px 18px;color:var(--text);font-family:'Barlow',sans-serif;font-size:1rem;outline:none;transition:border .2s;}
+.login-input:focus{border-color:var(--teal);}
+.login-btn{width:100%;max-width:320px;background:linear-gradient(135deg,var(--teal),var(--teal2));border:none;border-radius:var(--r);padding:16px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;cursor:pointer;margin-top:8px;transition:all .2s;animation:fadeUp .5s .3s ease both;}
+.login-btn:active{transform:scale(0.97);}
+.login-error{color:var(--red);font-size:0.82rem;margin-top:12px;display:none;animation:shake .3s ease;}
+header{position:relative;z-index:10;background:rgba(8,10,15,0.95);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;background:linear-gradient(135deg,#fff 0%,var(--teal) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.header-right{display:flex;gap:8px;align-items:center;}
+.hbtn{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:7px 11px;cursor:pointer;font-size:16px;transition:all .2s;}
+.hbtn:active{transform:scale(0.93);}
+.notif-badge{position:absolute;top:-4px;right:-4px;width:8px;height:8px;border-radius:50%;background:var(--red);display:none;}
+.notif-badge.on{display:block;}
+nav{position:relative;z-index:10;background:var(--s1);border-top:1px solid var(--border);display:flex;flex-shrink:0;margin-top:auto;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 4px 8px;cursor:pointer;transition:all .2s;border-top:2px solid transparent;position:relative;}
+.nav-item.active{border-top-color:var(--teal);}
+.nav-item.active .nav-icon,.nav-item.active .nav-lbl{color:var(--teal);}
+.nav-icon{font-size:20px;margin-bottom:3px;transition:transform .2s;}
+.nav-lbl{font-size:0.58rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);}
+.nav-item:active .nav-icon{transform:scale(0.85);}
+main{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;z-index:1;}
+.screen{display:none;padding:16px;animation:fadeIn .3s ease;}
+.screen.active{display:block;}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;transition:all .2s;}
+.card:active{transform:scale(0.99);}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.card-val{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1px;}
+.card-sub{font-size:0.75rem;color:var(--muted);margin-top:2px;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.stat-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:14px;}
+.stat-lbl{font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:24px;}
+.stat-sub{font-size:0.7rem;color:var(--muted);}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;display:flex;align-items:center;gap:8px;}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.loan-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.loan-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
+.loan-card.l1::before{background:var(--l1);}
+.loan-card.l2::before{background:var(--l2);}
+.loan-card.l3::before{background:var(--l3);}
+.loan-card:active{transform:scale(0.98);}
+.loan-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.loan-nombre{font-weight:700;font-size:0.95rem;}
+.loan-monto{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--teal);}
+.loan-tag{background:var(--s2);border-radius:6px;padding:3px 8px;font-size:0.68rem;font-weight:600;color:var(--muted);}
+.loan-tag.linea1{color:var(--l1);}
+.loan-tag.linea2{color:var(--l2);}
+.loan-tag.linea3{color:var(--l3);}
+.semaforo{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.sem-verde{background:var(--green);}
+.sem-amarillo{background:var(--gold);}
+.sem-rojo{background:var(--red);}
+.cuota-bar{margin-top:10px;}
+.cuota-bar-track{height:4px;background:var(--s3);border-radius:2px;overflow:hidden;}
+.cuota-bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal2));border-radius:2px;transition:width .5s ease;}
+.cuota-bar-lbl{display:flex;justify-content:space-between;font-size:0.65rem;color:var(--muted);margin-top:4px;}
+.btn{border:none;border-radius:var(--r);padding:13px 20px;font-family:'Barlow',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn:active{transform:scale(0.96);}
+.btn-teal{background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;}
+.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text);}
+.btn-red{background:rgba(239,68,68,0.15);color:var(--red);border:1px solid rgba(239,68,68,0.3);}
+.btn-gold{background:rgba(240,180,41,0.15);color:var(--gold);border:1px solid rgba(240,180,41,0.3);}
+.btn-full{width:100%;}
+.fab{position:fixed;bottom:76px;right:16px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal2));border:none;color:#fff;font-size:24px;cursor:pointer;box-shadow:0 4px 20px rgba(0,180,160,0.4);z-index:50;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.fab:active{transform:scale(0.92);}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:flex-end;backdrop-filter:blur(4px);}
+.modal.open{display:flex;animation:fadeIn .2s ease;}
+.modal-box{background:var(--s1);border-radius:24px 24px 0 0;width:100%;max-height:92vh;overflow-y:auto;padding:20px;animation:slideUp .3s ease;}
+.modal-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 20px;}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;margin-bottom:20px;}
+.form-group{margin-bottom:14px;}
+.form-label{display:block;font-size:0.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.form-input{width:100%;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-family:'Barlow',sans-serif;font-size:0.95rem;outline:none;transition:border .2s;}
+.form-input:focus{border-color:var(--teal);}
+.form-select{width:100%;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-family:'Barlow',sans-serif;font-size:0.95rem;outline:none;appearance:none;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.calc-preview{background:var(--s2);border:1px solid var(--teal);border-radius:10px;padding:14px;margin:12px 0;display:none;}
+.calc-preview.show{display:block;}
+.calc-row{display:flex;justify-content:space-between;padding:5px 0;font-size:0.85rem;border-bottom:1px solid var(--border);}
+.calc-row:last-child{border:none;padding-top:8px;font-weight:700;font-size:0.95rem;color:var(--teal);}
+.modal-actions{display:flex;gap:10px;margin-top:16px;}
+.modal-actions .btn{flex:1;}
+.cuota-item{background:var(--s2);border-radius:10px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
+.cuota-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--muted);width:28px;flex-shrink:0;}
+.cuota-info{flex:1;}
+.cuota-fecha{font-size:0.75rem;color:var(--muted);}
+.cuota-monto{font-weight:700;font-size:0.9rem;}
+.cuota-estado{font-size:0.7rem;padding:3px 8px;border-radius:6px;font-weight:700;}
+.ce-pagada{background:rgba(16,185,129,0.15);color:var(--green);}
+.ce-vencida{background:rgba(239,68,68,0.15);color:var(--red);}
+.ce-pendiente{background:rgba(100,116,139,0.15);color:var(--muted);}
+.ce-parcial{background:rgba(240,180,41,0.15);color:var(--gold);}
+.pago-acum{background:var(--s2);border-radius:8px;padding:10px;margin-top:6px;font-size:0.75rem;color:var(--muted);}
+.pago-acum-item{display:flex;justify-content:space-between;padding:3px 0;}
+.inv-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;}
+.inv-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.inv-name{font-family:'Bebas Neue',sans-serif;font-size:24px;}
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.inv-stat{background:var(--s2);border-radius:10px;padding:10px;text-align:center;}
+.inv-stat-lbl{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:4px;}
+.inv-stat-val{font-family:'Bebas Neue',sans-serif;font-size:18px;}
+.filter-bar{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;}
+.filter-chip{background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:0.75rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;}
+.filter-chip.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+.search-wrap{position:relative;margin-bottom:14px;}
+.search-input{width:100%;background:var(--s2);border:1.5px solid var(--border);border-radius:var(--r);padding:11px 14px 11px 40px;color:var(--text);font-family:'Barlow',sans-serif;font-size:0.9rem;outline:none;transition:border .2s;}
+.search-input:focus{border-color:var(--teal);}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px;}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:0.75rem;font-weight:600;cursor:pointer;position:relative;}
+.cal-day.has-cobro{background:rgba(0,180,160,0.2);color:var(--teal);}
+.cal-day.today{background:var(--teal);color:#fff;}
+.cal-day.vencido{background:rgba(239,68,68,0.15);color:var(--red);}
+.cal-dot{position:absolute;bottom:2px;width:4px;height:4px;border-radius:50%;background:var(--gold);}
+.cal-header{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px;}
+.cal-day-name{text-align:center;font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;}
+.chart-wrap{background:var(--s2);border-radius:var(--r);padding:16px;margin-bottom:12px;}
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:80px;}
+.chart-bar{flex:1;background:var(--s3);border-radius:4px 4px 0 0;position:relative;cursor:pointer;transition:all .2s;min-width:0;}
+.chart-bar-fill{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,var(--teal2),var(--teal));border-radius:4px 4px 0 0;transition:height .5s ease;}
+.chart-labels{display:flex;gap:6px;margin-top:6px;}
+.chart-label{flex:1;text-align:center;font-size:0.58rem;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sim-result{background:linear-gradient(135deg,rgba(0,180,160,0.1),rgba(0,180,160,0.05));border:1px solid rgba(0,180,160,0.3);border-radius:var(--r);padding:16px;margin-top:12px;display:none;}
+.sim-result.show{display:block;animation:fadeIn .3s ease;}
+.sim-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,180,160,0.1);font-size:0.85rem;}
+.sim-row:last-child{border:none;font-weight:800;font-size:1rem;color:var(--teal);}
+#panicoScreen{position:fixed;inset:0;background:#080a0f;z-index:2000;display:none;align-items:center;justify-content:center;}
+#panicoScreen.on{display:flex;}
+.alert-banner{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;font-size:0.82rem;}
+.alert-banner.warn{background:rgba(240,180,41,0.15);border-color:rgba(240,180,41,0.3);}
+.alert-banner.info{background:rgba(0,180,160,0.1);border-color:rgba(0,180,160,0.3);}
+.bl-item{background:var(--s1);border:1px solid rgba(239,68,68,0.3);border-radius:var(--r);padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.tabs{display:flex;gap:4px;background:var(--s2);border-radius:10px;padding:4px;margin-bottom:14px;}
+.tab{flex:1;text-align:center;padding:8px;border-radius:8px;font-size:0.75rem;font-weight:700;cursor:pointer;transition:all .2s;color:var(--muted);}
+.tab.active{background:var(--teal);color:#fff;}
+.espera-item{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.gasto-item{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.zona-mercedes{background:rgba(59,130,246,0.15);color:var(--blue);}
+.zona-gowland{background:rgba(240,180,41,0.15);color:var(--gold);}
+.zona-lujan{background:rgba(16,185,129,0.15);color:var(--green);}
+.switch{position:relative;width:44px;height:24px;}
+.switch input{opacity:0;width:0;height:0;}
+.switch-slider{position:absolute;inset:0;background:var(--s3);border-radius:12px;cursor:pointer;transition:.3s;}
+.switch-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s;}
+input:checked+.switch-slider{background:var(--teal);}
+input:checked+.switch-slider::before{transform:translateX(20px);}
+.confetti-piece{position:fixed;width:10px;height:10px;z-index:9999;pointer-events:none;animation:confetti 1.5s ease-in forwards;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes confetti{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+</style>
+</head>
+<body>
+<div id="panicoScreen"></div>
+<div id="loginScreen">
+  <div class="login-logo">CKRN</div>
+  <div class="login-sub">Sistema de Gestión</div>
+  <div class="login-field"><label>Usuario</label><input class="login-input" id="loginUser" type="text" placeholder="usuario" autocomplete="off"></div>
+  <div class="login-field"><label>Contraseña</label><input class="login-input" id="loginPass" type="password" placeholder="••••••"></div>
+  <button class="login-btn" onclick="doLogin()">INGRESAR</button>
+  <div class="login-error" id="loginError">Usuario o contraseña incorrectos</div>
+</div>
+<header>
+  <div class="logo">CKRNapp</div>
+  <div class="header-right">
+    <button class="hbtn" onclick="togglePanic()">🔴</button>
+    <button class="hbtn" onclick="openSimulador()">🧮</button>
+    <button class="hbtn" style="position:relative" onclick="goScreen('alertas')">🔔<span class="notif-badge" id="notifBadge"></span></button>
+    <button class="hbtn" onclick="toggleModoClaro()">☀️</button>
+  </div>
+</header>
+<main id="mainContent">
+  <!-- INICIO -->
+  <div class="screen active" id="screen-inicio">
+    <div id="alertBanners"></div>
+    <div class="sec-title">Resumen general</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-lbl">💰 Total prestado</div><div class="stat-num" id="s-total">$0</div><div class="stat-sub">en todos los préstamos</div></div>
+      <div class="stat-card"><div class="stat-lbl">✅ Cobrado</div><div class="stat-num" id="s-cobrado" style="color:var(--teal)">$0</div><div class="stat-sub">total recibido</div></div>
+      <div class="stat-card"><div class="stat-lbl">⏳ Pendiente</div><div class="stat-num" id="s-pendiente" style="color:var(--gold)">$0</div><div class="stat-sub">por cobrar</div></div>
+      <div class="stat-card"><div class="stat-lbl">🚨 Vencidos</div><div class="stat-num" id="s-vencidos" style="color:var(--red)">0</div><div class="stat-sub">préstamos atrasados</div></div>
+    </div>
+    <div class="sec-title">Efectivo en mano</div>
+    <div class="card" onclick="editEfectivo()">
+      <div class="card-title">💵 Dinero disponible</div>
+      <div class="card-val" id="s-efectivo" style="color:var(--green)">$0</div>
+      <div class="card-sub">Tocá para actualizar</div>
+    </div>
+    <div class="sec-title">Por línea</div>
+    <div id="lineasResumen"></div>
+    <div class="sec-title">Proyección del mes</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-lbl">📅 Este mes</div><div class="stat-num" id="s-proyMes" style="color:var(--teal)">$0</div><div class="stat-sub">por cobrar</div></div>
+      <div class="stat-card"><div class="stat-lbl">📅 Próximo mes</div><div class="stat-num" id="s-proyProx" style="color:var(--blue)">$0</div><div class="stat-sub">por cobrar</div></div>
+    </div>
+    <div class="sec-title">Vencen esta semana</div>
+    <div id="venceSemana"></div>
+    <div class="sec-title">Estadísticas</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-lbl">📊 Morosidad</div><div class="stat-num" id="s-morosidad" style="color:var(--red)">0%</div></div>
+      <div class="stat-card"><div class="stat-lbl">🔄 Renovación</div><div class="stat-num" id="s-renovacion" style="color:var(--green)">0%</div></div>
+      <div class="stat-card"><div class="stat-lbl">🎯 Ticket prom.</div><div class="stat-num" id="s-ticket">$0</div></div>
+      <div class="stat-card"><div class="stat-lbl">👥 Clientes nuevos</div><div class="stat-num" id="s-nuevos" style="color:var(--blue)">0</div></div>
+      <div class="stat-card"><div class="stat-lbl">⭐ Mejor cliente</div><div class="stat-num" id="s-mejor" style="font-size:14px;padding-top:4px">—</div></div>
+      <div class="stat-card"><div class="stat-lbl">📈 Crecimiento</div><div class="stat-num" id="s-crecimiento" style="color:var(--teal)">0%</div></div>
+    </div>
+    <div style="height:80px;"></div>
+  </div>
+  <!-- PRÉSTAMOS -->
+  <div class="screen" id="screen-prestamos">
+    <div class="search-wrap"><span class="search-icon">🔍</span><input class="search-input" id="searchInput" placeholder="Buscar cliente..." oninput="renderLoans()"></div>
+    <div class="filter-bar">
+      <div class="filter-chip active" onclick="setFilter('todos',this)">Todos</div>
+      <div class="filter-chip" onclick="setFilter('activo',this)">Activos</div>
+      <div class="filter-chip" onclick="setFilter('vencido',this)">Vencidos</div>
+      <div class="filter-chip" onclick="setFilter('saldado',this)">Saldados</div>
+      <div class="filter-chip" onclick="setFilter('l1',this)">Línea 1</div>
+      <div class="filter-chip" onclick="setFilter('l2',this)">Línea 2</div>
+      <div class="filter-chip" onclick="setFilter('l3',this)">Línea 3</div>
+    </div>
+    <div id="loansList"></div>
+    <div style="height:80px;"></div>
+  </div>
+  <!-- INVERSORES -->
+  <div class="screen" id="screen-inversores">
+    <div class="tabs">
+      <div class="tab active" onclick="setInvTab('resumen',this)">Resumen</div>
+      <div class="tab" onclick="setInvTab('espera',this)">Espera</div>
+      <div class="tab" onclick="setInvTab('blacklist',this)">Blacklist</div>
+      <div class="tab" onclick="setInvTab('gastos',this)">Gastos</div>
+    </div>
+    <div id="invPanel"></div>
+    <div style="height:80px;"></div>
+  </div>
+  <!-- STATS -->
+  <div class="screen" id="screen-stats">
+    <div class="tabs">
+      <div class="tab active" onclick="setStatsTab('general',this)">General</div>
+      <div class="tab" onclick="setStatsTab('clientes',this)">Clientes</div>
+      <div class="tab" onclick="setStatsTab('zonas',this)">Zonas</div>
+      <div class="tab" onclick="setStatsTab('anual',this)">Anual</div>
+    </div>
+    <div id="statsPanel"></div>
+    <div style="height:80px;"></div>
+  </div>
+  <!-- ALERTAS -->
+  <div class="screen" id="screen-alertas">
+    <div class="sec-title">Alertas activas</div>
+    <div id="alertasList"></div>
+    <div class="sec-title">Configuración</div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><span style="font-weight:600">Notificaciones 9AM</span><label class="switch"><input type="checkbox" id="sw-notif" checked><span class="switch-slider"></span></label></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><span style="font-weight:600">Resumen lunes</span><label class="switch"><input type="checkbox" id="sw-lunes" checked><span class="switch-slider"></span></label></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-weight:600">Backup semanal WA</span><label class="switch"><input type="checkbox" id="sw-backup" checked><span class="switch-slider"></span></label></div>
+    </div>
+    <div class="sec-title">Calendario de cobros</div>
+    <div id="calPanel"></div>
+    <div style="height:80px;"></div>
+  </div>
+</main>
+<nav>
+  <div class="nav-item active" onclick="goScreen('inicio')"><div class="nav-icon">🏠</div><div class="nav-lbl">Inicio</div></div>
+  <div class="nav-item" onclick="goScreen('prestamos')"><div class="nav-icon">📋</div><div class="nav-lbl">Préstamos</div></div>
+  <div class="nav-item" onclick="goScreen('inversores')"><div class="nav-icon">👥</div><div class="nav-lbl">Inversores</div></div>
+  <div class="nav-item" onclick="goScreen('stats')"><div class="nav-icon">📊</div><div class="nav-lbl">Stats</div></div>
+  <div class="nav-item" onclick="goScreen('alertas')"><div class="nav-icon">🔔</div><div class="nav-lbl">Alertas</div></div>
+</nav>
+
+<!-- MODAL NUEVO/EDITAR PRÉSTAMO -->
+<div class="modal" id="modalNuevo">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modalNuevoTitulo">Nuevo Préstamo</div>
+    <div class="form-group"><label class="form-label">Nombre del cliente</label><input class="form-input" id="n-nombre" placeholder="Nombre y apellido"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Línea</label><select class="form-select" id="n-linea" onchange="calcPreview()"><option value="1">Línea 1 — Vos</option><option value="2">Línea 2 — David</option><option value="3">Línea 3 — Martín</option></select></div>
+      <div class="form-group"><label class="form-label">Zona</label><select class="form-select" id="n-zona"><option value="Mercedes">Mercedes</option><option value="Gowland">Gowland</option><option value="Luján">Luján</option></select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Monto ($)</label><input class="form-input" id="n-monto" type="number" placeholder="100000" oninput="calcPreview()"></div>
+      <div class="form-group"><label class="form-label">Modalidad</label><select class="form-select" id="n-modalidad" onchange="calcPreview()"><option value="mensual">Mensual</option><option value="quincenal">Quincenal</option><option value="semanal">Semanal</option></select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Cuotas</label><input class="form-input" id="n-cuotas" type="number" placeholder="3" oninput="calcPreview()"></div>
+      <div class="form-group"><label class="form-label">Fecha entrega</label><input class="form-input" id="n-fecha" type="date"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Cuota personalizada (opcional)</label><input class="form-input" id="n-cuota-custom" type="number" placeholder="Dejar vacío para automático" oninput="calcPreview()"></div>
+    <div class="form-group"><label class="form-label">N° Contrato / Pagaré</label><input class="form-input" id="n-contrato" placeholder="Ej: 001-2025"></div>
+    <div class="form-group"><label class="form-label">Semáforo</label><select class="form-select" id="n-semaforo"><option value="verde">🟢 Verde — Paga bien</option><option value="amarillo">🟡 Amarillo — A veces tarda</option><option value="rojo">🔴 Rojo — Problemático</option></select></div>
+    <div class="form-group"><label class="form-label">Notas</label><input class="form-input" id="n-notas" placeholder="Ej: paga los viernes..."></div>
+    <div class="calc-preview" id="calcPreview">
+      <div class="calc-row"><span>Tasa aplicada</span><span id="prev-tasa">—</span></div>
+      <div class="calc-row"><span>Total a devolver</span><span id="prev-total">—</span></div>
+      <div class="calc-row"><span>Cuota estimada</span><span id="prev-cuota">—</span></div>
+      <div class="calc-row" style="margin-top:4px"><span>💰 Cuota final</span><span id="prev-cuota-final" style="color:var(--teal)">—</span></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modalNuevo')">Cancelar</button>
+      <button class="btn btn-teal" onclick="guardarPrestamo()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DETALLE -->
+<div class="modal" id="modalDetalle">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div id="detalleContent"></div>
+  </div>
+</div>
+
+<!-- MODAL PAGO -->
+<div class="modal" id="modalPago">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Registrar Pago</div>
+    <div class="form-group"><label class="form-label">Cuota a pagar</label><div id="pagoCuotasList"></div></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Monto recibido ($)</label><input class="form-input" id="pagoMonto" type="number" placeholder="0"></div>
+      <div class="form-group"><label class="form-label">Fecha de pago</label><input class="form-input" id="pagoFecha" type="date"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Nota (opcional)</label><input class="form-input" id="pagoNota" placeholder="Ej: pagó en efectivo"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modalPago')">Cancelar</button>
+      <button class="btn btn-teal" onclick="confirmarPago()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SIMULADOR -->
+<div class="modal" id="modalSimulador">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Simulador KRN</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Monto ($)</label><input class="form-input" id="sim-monto" type="number" placeholder="100000" oninput="simCalc()"></div>
+      <div class="form-group"><label class="form-label">Modalidad</label><select class="form-select" id="sim-mod" onchange="simCalc()"><option value="mensual">Mensual</option><option value="quincenal">Quincenal</option><option value="semanal">Semanal</option></select></div>
+    </div>
+    <div class="form-group"><label class="form-label">Cuotas</label><input class="form-input" id="sim-cuotas" type="number" placeholder="3" oninput="simCalc()"></div>
+    <div class="sim-result" id="simResult">
+      <div class="sim-row"><span>Nivel</span><span id="sim-nivel">—</span></div>
+      <div class="sim-row"><span>Tasa</span><span id="sim-tasa">—</span></div>
+      <div class="sim-row"><span>Total a devolver</span><span id="sim-total">—</span></div>
+      <div class="sim-row"><span>💰 Cuota</span><span id="sim-cuota">—</span></div>
+    </div>
+    <button class="btn btn-outline btn-full" style="margin-top:16px;" onclick="closeModal('modalSimulador')">Cerrar</button>
+  </div>
+</div>
+
+<!-- MODAL EFECTIVO -->
+<div class="modal" id="modalEfectivo">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Efectivo en mano</div>
+    <div class="form-group"><label class="form-label">Monto en efectivo ($)</label><input class="form-input" id="efectivoMonto" type="number" placeholder="0"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modalEfectivo')">Cancelar</button>
+      <button class="btn btn-teal" onclick="guardarEfectivo()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EDICIÓN COMPLETA -->
+<div class="modal" id="modalEditar">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div id="editContent"></div>
+  </div>
+</div>
+
+<!-- MODAL ESPERA -->
+<div class="modal" id="modalEspera">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Lista de espera</div>
+    <div class="form-group"><label class="form-label">Nombre</label><input class="form-input" id="esp-nombre" placeholder="Nombre del cliente"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Monto deseado</label><input class="form-input" id="esp-monto" type="number" placeholder="100000"></div>
+      <div class="form-group"><label class="form-label">Línea</label><select class="form-select" id="esp-linea"><option value="1">Línea 1</option><option value="2">Línea 2</option><option value="3">Línea 3</option></select></div>
+    </div>
+    <div class="form-group"><label class="form-label">Notas</label><input class="form-input" id="esp-notas" placeholder="Observaciones..."></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modalEspera')">Cancelar</button>
+      <button class="btn btn-teal" onclick="guardarEspera()">Agregar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL GASTO -->
+<div class="modal" id="modalGasto">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Registrar Gasto</div>
+    <div class="form-group"><label class="form-label">Descripción</label><input class="form-input" id="gasto-desc" placeholder="Ej: nafta, impresiones..."></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Monto ($)</label><input class="form-input" id="gasto-monto" type="number" placeholder="0"></div>
+      <div class="form-group"><label class="form-label">Fecha</label><input class="form-input" id="gasto-fecha" type="date"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modalGasto')">Cancelar</button>
+      <button class="btn btn-teal" onclick="guardarGasto()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<button class="fab" id="fabBtn" onclick="openNuevo()">+</button>
+
+<script>
+const CREDS = { user: 'ckrn', pass: '153246' };
+const LINEAS = {
+  1: { nombre: 'Línea 1', color: '#3b82f6', inv: { yo: 1 } },
+  2: { nombre: 'Línea 2', color: '#f0b429', inv: { yo: 0.3, david: 0.7 } },
+  3: { nombre: 'Línea 3', color: '#10b981', inv: { yo: 0.25, david: 0.20, martin: 0.55 } }
+};
+const TASAS = {
+  semanal:[{max:10000,t:40},{max:20000,t:38},{max:30000,t:36},{max:40000,t:34},{max:50000,t:32},{max:60000,t:30},{max:70000,t:28},{max:80000,t:27},{max:90000,t:26},{max:Infinity,t:25}],
+  quincenal:{1:70,2:80,3:125,4:160,5:175,6:200},
+  mensual:{
+    base:{max:250000,t:{1:75,2:90,3:135,4:170,5:185,6:210}},
+    media:{max:799999,t:{1:50,2:83.25,3:125.9,4:157.25,5:171.1,6:194.25,7:196,8:199,9:203}},
+    full:{max:1499999,t:{1:50,2:76.5,3:114.75,4:144.5,5:157.25,6:178.5,7:184,8:190,9:197,10:204.4,11:210.4,12:216.75,13:223.5,14:230,15:236.5,16:243,17:249.5,18:256}},
+    max:{max:Infinity,t:{1:30,2:61.5,3:92.25,4:123,5:134.25,6:145.5,7:150.5,8:155,9:159.5,10:164,11:168.5,12:173,13:179,14:185,15:196,16:208,17:222,18:235}}
+  }
+};
+
+let loans=[], blacklist=[], espera=[], gastos=[], efectivo=0;
+
+// ============================================================
+// DATOS PRE-CARGADOS
+// ============================================================
+const SEED_LOANS=(()=>{
+  const c=(num,fecha,monto,paid=false,fp=null)=>({num,fecha,monto,pagada:paid,pagos:paid?[{monto,fecha:fp||fecha,nota:'Pago registrado'}]:[],fechaPago:paid?(fp||fecha):null,tipoFecha:'exacta',fechaDesde:'',fechaHasta:''});
+  // Helper: cuota con rango (paga entre dos fechas del mes)
+  const cr=(num,desde,hasta,monto,paid=false,fp=null)=>({num,fecha:hasta,fechaDesde:desde,fechaHasta:hasta,monto,pagada:paid,pagos:paid?[{monto,fecha:fp||hasta,nota:'Pago registrado'}]:[],fechaPago:paid?(fp||hasta):null,tipoFecha:'rango'});
+  // Helper: cuota flexible (quincena, día hábil, etc.)
+  const cf=(num,fechaAprox,monto,paid=false,fp=null)=>({num,fecha:fechaAprox,monto,pagada:paid,pagos:paid?[{monto,fecha:fp||fechaAprox,nota:'Pago registrado'}]:[],fechaPago:paid?(fp||fechaAprox):null,tipoFecha:'flexible',fechaDesde:'',fechaHasta:''});
+  return[
+  // L2 — DAVID
+  {id:1001,nombre:'Ximena Muñoz',linea:2,zona:'Mercedes',monto:450000,mod:'mensual',cuotas:7,tasa:196,nivel:'Media',total:1330000,montoCuota:190000,fechaInicio:'2026-03-01',contrato:'',sem:'rojo',notas:'Atrasada desde abril',cuotasArr:[c(1,'2026-04-01',190000),c(2,'2026-05-01',190000),c(3,'2026-06-01',190000),c(4,'2026-07-01',190000),c(5,'2026-08-01',190000),c(6,'2026-09-01',190000),c(7,'2026-10-01',190000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-01'},
+  {id:1002,nombre:'Tomas Bordon',linea:2,zona:'Mercedes',monto:70000,mod:'mensual',cuotas:1,tasa:25,nivel:'Base',total:87500,montoCuota:87500,fechaInicio:'2026-03-22',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-22',87500)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-22'},
+  {id:1003,nombre:'Yamila Pajon',linea:2,zona:'Mercedes',monto:100000,mod:'mensual',cuotas:1,tasa:75,nivel:'Base',total:175000,montoCuota:175000,fechaInicio:'2026-03-05',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-05',175000,true,'2026-04-05')],saldado:true,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-05'},
+  {id:1004,nombre:'Ezequiel Solari',linea:2,zona:'Mercedes',monto:200000,mod:'mensual',cuotas:2,tasa:90,nivel:'Base',total:380000,montoCuota:190000,fechaInicio:'2026-03-01',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-01',190000,true,'2026-04-01'),c(2,'2026-05-01',190000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-01'},
+  {id:1005,nombre:'Matias Garcia',linea:2,zona:'Mercedes',monto:550000,mod:'mensual',cuotas:3,tasa:125.9,nivel:'Media',total:1179000,montoCuota:393000,fechaInicio:'2026-03-01',contrato:'',sem:'verde',notas:'Paga del 1 al 5',cuotasArr:[c(1,'2026-04-01',393000,true,'2026-04-03'),c(2,'2026-05-01',393000,true,'2026-04-15'),c(3,'2026-06-01',393000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-01'},
+  {id:1006,nombre:'Tobias Adorno',linea:2,zona:'Mercedes',monto:50000,mod:'semanal',cuotas:1,tasa:32,nivel:'Semanal',total:62500,montoCuota:62500,fechaInicio:'2026-03-06',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-03-13',62500,true,'2026-03-13')],saldado:true,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-06'},
+  {id:1007,nombre:'Matias Nerea',linea:2,zona:'Mercedes',monto:50000,mod:'semanal',cuotas:1,tasa:60,nivel:'Semanal',total:80000,montoCuota:80000,fechaInicio:'2026-03-13',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-03-20',80000,true,'2026-03-20')],saldado:true,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-13'},
+  {id:1008,nombre:'Macarena Canizo',linea:2,zona:'Mercedes',monto:1500000,mod:'mensual',cuotas:18,tasa:235,nivel:'Max',total:5184000,montoCuota:288000,fechaInicio:'2026-03-02',contrato:'',sem:'verde',notas:'Paga del 2 al 8',cuotasArr:[c(1,'2026-04-02',288000,true,'2026-04-05'),c(2,'2026-05-02',288000),c(3,'2026-06-02',288000),c(4,'2026-07-02',288000),c(5,'2026-08-02',288000),c(6,'2026-09-02',288000),c(7,'2026-10-02',288000),c(8,'2026-11-02',288000),c(9,'2026-12-02',288000),c(10,'2027-01-02',288000),c(11,'2027-02-02',288000),c(12,'2027-03-02',288000),c(13,'2027-04-02',288000),c(14,'2027-05-02',288000),c(15,'2027-06-02',288000),c(16,'2027-07-02',288000),c(17,'2027-08-02',288000),c(18,'2027-09-02',288000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-02'},
+  {id:1009,nombre:'Gisela Diaz',linea:2,zona:'Mercedes',monto:100000,mod:'mensual',cuotas:2,tasa:90,nivel:'Base',total:190000,montoCuota:95000,fechaInicio:'2026-03-20',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-20',95000),c(2,'2026-05-20',95000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-20'},
+  {id:1010,nombre:'Tobias Adorno',linea:2,zona:'Mercedes',monto:40000,mod:'semanal',cuotas:1,tasa:25,nivel:'Semanal',total:50000,montoCuota:50000,fechaInicio:'2026-03-20',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-03-27',50000,true,'2026-03-27')],saldado:true,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-20'},
+  {id:1011,nombre:'Juan Pablo Lenain',linea:2,zona:'Mercedes',monto:30000,mod:'semanal',cuotas:1,tasa:110,nivel:'Semanal',total:63000,montoCuota:63000,fechaInicio:'2026-04-03',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-10',63000,true,'2026-04-10')],saldado:true,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-03'},
+  {id:1012,nombre:'Tobias Adorno',linea:2,zona:'Mercedes',monto:20000,mod:'semanal',cuotas:1,tasa:25,nivel:'Semanal',total:25000,montoCuota:25000,fechaInicio:'2026-03-27',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-03',25000,true,'2026-04-03')],saldado:true,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-27'},
+  {id:1013,nombre:'Eugenio Bafundo',linea:2,zona:'Mercedes',monto:1000000,mod:'mensual',cuotas:18,tasa:256,nivel:'Full',total:3348000,montoCuota:186000,fechaInicio:'2026-04-08',contrato:'',sem:'verde',notas:'Financiado del recupero L2',cuotasArr:[c(1,'2026-05-08',186000),c(2,'2026-06-08',186000),c(3,'2026-07-08',186000),c(4,'2026-08-08',186000),c(5,'2026-09-08',186000),c(6,'2026-10-08',186000),c(7,'2026-11-08',186000),c(8,'2026-12-08',186000),c(9,'2027-01-08',186000),c(10,'2027-02-08',186000),c(11,'2027-03-08',186000),c(12,'2027-04-08',186000),c(13,'2027-05-08',186000),c(14,'2027-06-08',186000),c(15,'2027-07-08',186000),c(16,'2027-08-08',186000),c(17,'2027-09-08',186000),c(18,'2027-10-08',186000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-08'},
+  {id:1014,nombre:'Camila Garcia',linea:2,zona:'Mercedes',monto:500000,mod:'mensual',cuotas:9,tasa:203,nivel:'Media',total:1512000,montoCuota:168000,fechaInicio:'2026-04-08',contrato:'',sem:'verde',notas:'Financiado del recupero L2',cuotasArr:[c(1,'2026-05-08',168000),c(2,'2026-06-08',168000),c(3,'2026-07-08',168000),c(4,'2026-08-08',168000),c(5,'2026-09-08',168000),c(6,'2026-10-08',168000),c(7,'2026-11-08',168000),c(8,'2026-12-08',168000),c(9,'2027-01-08',168000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-08'},
+  // L3 — MARTÍN
+  {id:2001,nombre:'Gisela Diaz',linea:3,zona:'Mercedes',monto:100000,mod:'mensual',cuotas:1,tasa:75,nivel:'Base',total:175000,montoCuota:175000,fechaInicio:'2026-03-30',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-30',175000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-30'},
+  {id:2002,nombre:'Tomas Bordon',linea:3,zona:'Mercedes',monto:130000,mod:'mensual',cuotas:2,tasa:90,nivel:'Base',total:247000,montoCuota:123500,fechaInicio:'2026-04-01',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-05-01',123500),c(2,'2026-06-01',123500)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-01'},
+  {id:2003,nombre:'Alan Penayo',linea:3,zona:'Mercedes',monto:250000,mod:'mensual',cuotas:5,tasa:172,nivel:'Base',total:680000,montoCuota:136000,fechaInicio:'2026-04-05',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-05-05',136000),c(2,'2026-06-05',136000),c(3,'2026-07-05',136000),c(4,'2026-08-05',136000),c(5,'2026-09-05',136000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-05'},
+  {id:2004,nombre:'Camila Silvestre',linea:3,zona:'Mercedes',monto:200000,mod:'mensual',cuotas:2,tasa:90,nivel:'Base',total:380000,montoCuota:190000,fechaInicio:'2026-04-01',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-05-01',190000),c(2,'2026-06-01',190000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-01'},
+  {id:2005,nombre:'Tomas Bordon',linea:3,zona:'Mercedes',monto:160000,mod:'mensual',cuotas:1,tasa:75,nivel:'Base',total:280000,montoCuota:280000,fechaInicio:'2026-04-01',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-05-01',280000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-01'},
+  {id:2006,nombre:'Tobias Adorno',linea:3,zona:'Mercedes',monto:50000,mod:'semanal',cuotas:1,tasa:32,nivel:'Semanal',total:66000,montoCuota:66000,fechaInicio:'2026-04-03',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-10',66000,true,'2026-04-10')],saldado:true,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-03'},
+  {id:2007,nombre:'Elizabeth Blanco',linea:3,zona:'Mercedes',monto:400000,mod:'mensual',cuotas:2,tasa:88,nivel:'Media',total:752000,montoCuota:376000,fechaInicio:'2026-04-13',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-05-13',376000),c(2,'2026-06-13',376000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-13'},
+  {id:2008,nombre:'Matias Garcia',linea:3,zona:'Mercedes',monto:700000,mod:'mensual',cuotas:4,tasa:157.25,nivel:'Media',total:1800000,montoCuota:450000,fechaInicio:'2026-04-01',contrato:'',sem:'verde',notas:'Paga del 1 al 5',cuotasArr:[c(1,'2026-05-01',450000),c(2,'2026-06-01',450000),c(3,'2026-07-01',450000),c(4,'2026-08-01',450000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-01'},
+  {id:2009,nombre:'Nicolas Fornos',linea:3,zona:'Mercedes',monto:300000,mod:'mensual',cuotas:3,tasa:125.9,nivel:'Media',total:678000,montoCuota:226000,fechaInicio:'2026-04-07',contrato:'',sem:'verde',notas:'4° día hábil de cada mes',cuotasArr:[c(1,'2026-05-07',226000),c(2,'2026-06-04',226000),c(3,'2026-07-02',226000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-07'},
+  {id:2010,nombre:'Tobias Adorno',linea:3,zona:'Mercedes',monto:40000,mod:'semanal',cuotas:1,tasa:34,nivel:'Semanal',total:53600,montoCuota:53600,fechaInicio:'2026-04-10',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-17',53600,true,'2026-04-17')],saldado:true,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-10'},
+  {id:2011,nombre:'Kevin Chacar',linea:3,zona:'Mercedes',monto:100000,mod:'mensual',cuotas:2,tasa:75,nivel:'Base',total:175000,montoCuota:80000,fechaInicio:'2026-03-30',contrato:'',sem:'verde',notas:'C1=$80k descuento, C2=$95k',cuotasArr:[{num:1,fecha:'2026-04-30',monto:80000,pagada:false,pagos:[],fechaPago:null},{num:2,fecha:'2026-05-30',monto:95000,pagada:false,pagos:[],fechaPago:null}],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-30'},
+  {id:2012,nombre:'Lucas Zabaleta',linea:3,zona:'Mercedes',monto:10000,mod:'semanal',cuotas:1,tasa:50,nivel:'Semanal',total:15000,montoCuota:15000,fechaInicio:'2026-04-10',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-17',15000,true,'2026-04-17')],saldado:true,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-10'},
+  {id:2013,nombre:'Matias Nerea',linea:3,zona:'Mercedes',monto:50000,mod:'semanal',cuotas:1,tasa:32,nivel:'Semanal',total:66000,montoCuota:66000,fechaInicio:'2026-04-13',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-20',66000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-13'},
+  {id:2014,nombre:'Walter Ratto',linea:3,zona:'Mercedes',monto:20000,mod:'semanal',cuotas:1,tasa:38,nivel:'Semanal',total:27600,montoCuota:27600,fechaInicio:'2026-04-10',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-17',27600,true,'2026-04-17')],saldado:true,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-10'},
+  {id:2015,nombre:'Marcos Puca',linea:3,zona:'Mercedes',monto:20000,mod:'semanal',cuotas:1,tasa:38,nivel:'Semanal',total:27600,montoCuota:27600,fechaInicio:'2026-04-12',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-19',27600)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-12'},
+  {id:2016,nombre:'Juan Pablo Lenain',linea:3,zona:'Mercedes',monto:20000,mod:'semanal',cuotas:1,tasa:38,nivel:'Semanal',total:27600,montoCuota:27600,fechaInicio:'2026-04-10',contrato:'',sem:'verde',notas:'',cuotasArr:[c(1,'2026-04-17',27600,true,'2026-04-17')],saldado:true,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-10'},
+  {id:2017,nombre:'Maxi Montes de Oca',linea:3,zona:'Mercedes',monto:100000,mod:'mensual',cuotas:1,tasa:70,nivel:'Base',total:170000,montoCuota:170000,fechaInicio:'2026-04-01',contrato:'',sem:'amarillo',notas:'Paga por quincena cuando cobra — fecha aprox ~8/05',cuotasArr:[c(1,'2026-05-08',170000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-01'},
+  {id:2018,nombre:'Tobias Adorno',linea:3,zona:'Mercedes',monto:40000,mod:'semanal',cuotas:1,tasa:34,nivel:'Semanal',total:53600,montoCuota:53600,fechaInicio:'2026-04-17',contrato:'',sem:'verde',notas:'Nuevo 19/04',cuotasArr:[c(1,'2026-04-24',53600)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-17'},
+  // L1 — VOS
+  {id:3001,nombre:'Agustin Rato',linea:1,zona:'Mercedes',monto:500000,mod:'mensual',cuotas:9,tasa:110,nivel:'Base',total:1050000,montoCuota:100000,fechaInicio:'2025-12-01',contrato:'',sem:'amarillo',notas:'Cuotas 1-3: $150k. Desde c4 bajó a $100k. Paga flexible, cambia cada mes.',cuotasArr:[{num:1,fecha:'2026-01-01',monto:150000,pagada:true,pagos:[{monto:150000,fecha:'2026-01-05',nota:'Pago registrado'}],fechaPago:'2026-01-05',tipoFecha:'exacta'},{num:2,fecha:'2026-02-01',monto:150000,pagada:true,pagos:[{monto:150000,fecha:'2026-02-05',nota:'Pago registrado'}],fechaPago:'2026-02-05',tipoFecha:'exacta'},{num:3,fecha:'2026-03-01',monto:150000,pagada:true,pagos:[{monto:150000,fecha:'2026-03-05',nota:'Pago registrado'}],fechaPago:'2026-03-05',tipoFecha:'exacta'},c(4,'2026-04-20',100000,true,'2026-04-20'),cf(5,'2026-05-01',100000),cf(6,'2026-06-01',100000),cf(7,'2026-07-01',100000),cf(8,'2026-08-01',100000),cf(9,'2026-09-01',100000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2025-12-01'},
+  {id:3002,nombre:'Alexander T',linea:1,zona:'Mercedes',monto:879000,mod:'mensual',cuotas:12,tasa:216.75,nivel:'Full',total:2736000,montoCuota:228000,fechaInicio:'2025-11-20',contrato:'',sem:'amarillo',notas:'P1 — 1° quincena (flexible, ~20 de cada mes). Pagó 4.',cuotasArr:[c(1,'2025-12-20',228000,true,'2025-12-20'),c(2,'2026-01-20',228000,true,'2026-01-20'),c(3,'2026-02-20',228000,true,'2026-02-20'),c(4,'2026-03-20',228000,true,'2026-03-20'),cf(5,'2026-04-20',228000),cf(6,'2026-05-20',228000),cf(7,'2026-06-20',228000),cf(8,'2026-07-20',228000),cf(9,'2026-08-20',228000),cf(10,'2026-09-20',228000),cf(11,'2026-10-20',228000),cf(12,'2026-11-20',228000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2025-11-20'},
+  {id:3003,nombre:'Alexander T',linea:1,zona:'Mercedes',monto:1000000,mod:'mensual',cuotas:12,tasa:216.75,nivel:'Full',total:3168000,montoCuota:264000,fechaInicio:'2025-06-05',contrato:'',sem:'amarillo',notas:'P2 — 2° quincena (flexible, ~5 del mes siguiente). Pagó 10, quedan 2.',cuotasArr:[c(1,'2025-07-05',264000,true,'2025-07-05'),c(2,'2025-08-05',264000,true,'2025-08-05'),c(3,'2025-09-05',264000,true,'2025-09-05'),c(4,'2025-10-05',264000,true,'2025-10-05'),c(5,'2025-11-05',264000,true,'2025-11-05'),c(6,'2025-12-05',264000,true,'2025-12-05'),c(7,'2026-01-05',264000,true,'2026-01-05'),c(8,'2026-02-05',264000,true,'2026-02-05'),c(9,'2026-03-05',264000,true,'2026-03-05'),c(10,'2026-04-05',264000,true,'2026-04-05'),cf(11,'2026-05-05',264000),cf(12,'2026-06-05',264000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2025-06-05'},
+  {id:3004,nombre:'Alexander T',linea:1,zona:'Mercedes',monto:80000,mod:'mensual',cuotas:2,tasa:70,nivel:'Base',total:136000,montoCuota:68000,fechaInicio:'2026-03-05',contrato:'',sem:'amarillo',notas:'P3 — 2° quincena (flexible). Pagó 1, queda 1.',cuotasArr:[c(1,'2026-04-05',68000,true,'2026-04-05'),cf(2,'2026-05-05',68000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-05'},
+  {id:3005,nombre:'Alexander T',linea:1,zona:'Mercedes',monto:132000,mod:'mensual',cuotas:1,tasa:0,nivel:'Base',total:132000,montoCuota:132000,fechaInicio:'2026-04-10',contrato:'',sem:'rojo',notas:'DEUDA quincena anterior — pagar esta quincena ~24/04 (flexible)',cuotasArr:[cf(1,'2026-04-24',132000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-10'},
+  {id:3006,nombre:'Alexander T',linea:1,zona:'Mercedes',monto:132000,mod:'mensual',cuotas:1,tasa:0,nivel:'Base',total:132000,montoCuota:132000,fechaInicio:'2026-04-10',contrato:'',sem:'rojo',notas:'DEUDA diferida — pagar junto con última cuota P3 (flexible ~mayo)',cuotasArr:[cf(1,'2026-05-05',132000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-04-10'},
+  {id:3007,nombre:'Ezequiel Navarro',linea:1,zona:'Mercedes',monto:80000,mod:'mensual',cuotas:4,tasa:170,nivel:'Base',total:216000,montoCuota:54000,fechaInicio:'2026-01-20',contrato:'',sem:'verde',notas:'P1 — 1° quincena (flexible ~20). Pagó 2.',cuotasArr:[c(1,'2026-02-20',54000,true,'2026-02-20'),c(2,'2026-03-20',54000,true,'2026-03-20'),cf(3,'2026-04-20',54000),cf(4,'2026-05-20',54000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-01-20'},
+  {id:3008,nombre:'Ezequiel Navarro',linea:1,zona:'Mercedes',monto:60000,mod:'mensual',cuotas:4,tasa:166,nivel:'Base',total:160000,montoCuota:40000,fechaInicio:'2026-01-05',contrato:'',sem:'verde',notas:'P2 — 2° quincena (flexible ~5 mes sig). Pagó 2.',cuotasArr:[c(1,'2026-02-05',40000,true,'2026-02-05'),c(2,'2026-03-05',40000,true,'2026-03-05'),cf(3,'2026-05-05',40000),cf(4,'2026-06-05',40000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-01-05'},
+  {id:3009,nombre:'Gaby Barbero',linea:1,zona:'Mercedes',monto:500000,mod:'mensual',cuotas:9,tasa:176,nivel:'Base',total:1380000,montoCuota:110000,fechaInicio:'2025-10-01',contrato:'',sem:'verde',notas:'C1-5: $188k. Desde c6 rebajó a $110k. Paga del 1 al 15.',cuotasArr:[{num:1,fecha:'2025-11-01',monto:188000,pagada:true,pagos:[{monto:188000,fecha:'2025-11-10',nota:'Pago registrado'}],fechaPago:'2025-11-10'},{num:2,fecha:'2025-12-01',monto:188000,pagada:true,pagos:[{monto:188000,fecha:'2025-12-10',nota:'Pago registrado'}],fechaPago:'2025-12-10'},{num:3,fecha:'2026-01-01',monto:188000,pagada:true,pagos:[{monto:188000,fecha:'2026-01-10',nota:'Pago registrado'}],fechaPago:'2026-01-10'},{num:4,fecha:'2026-02-01',monto:188000,pagada:true,pagos:[{monto:188000,fecha:'2026-02-08',nota:'Pago registrado'}],fechaPago:'2026-02-08'},{num:5,fecha:'2026-03-01',monto:188000,pagada:true,pagos:[{monto:188000,fecha:'2026-03-10',nota:'Pago registrado'}],fechaPago:'2026-03-10'},cr(6,'2026-04-01','2026-04-15',110000),cr(7,'2026-05-01','2026-05-15',110000),cr(8,'2026-06-01','2026-06-15',110000),cr(9,'2026-07-01','2026-07-15',110000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2025-10-01'},
+  {id:3010,nombre:'Sebastian Fornos',linea:1,zona:'Mercedes',monto:100000,mod:'mensual',cuotas:6,tasa:209,nivel:'Base',total:309000,montoCuota:51500,fechaInicio:'2026-02-01',contrato:'',sem:'verde',notas:'Paga del 1 al 5.',cuotasArr:[c(1,'2026-03-01',51500,true,'2026-03-04'),c(2,'2026-04-01',51500,true,'2026-04-03'),cr(3,'2026-05-01','2026-05-05',51500),cr(4,'2026-06-01','2026-06-05',51500),cr(5,'2026-07-01','2026-07-05',51500),cr(6,'2026-08-01','2026-08-05',51500)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-02-01'},
+  {id:3011,nombre:'Estela Maris Garcia',linea:1,zona:'Mercedes',monto:300000,mod:'mensual',cuotas:6,tasa:145.5,nivel:'Base',total:735000,montoCuota:122500,fechaInicio:'2026-01-01',contrato:'',sem:'verde',notas:'Paga del 1 al 5.',cuotasArr:[c(1,'2026-02-01',122500,true,'2026-02-03'),c(2,'2026-03-01',122500,true,'2026-03-04'),c(3,'2026-04-01',122500,true,'2026-04-03'),cr(4,'2026-05-01','2026-05-05',122500),cr(5,'2026-06-01','2026-06-05',122500),cr(6,'2026-07-01','2026-07-05',122500)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-01-01'},
+  {id:3012,nombre:'Walter Ratto',linea:1,zona:'Mercedes',monto:150000,mod:'mensual',cuotas:9,tasa:404,nivel:'Base',total:756000,montoCuota:84000,fechaInicio:'2026-03-01',contrato:'',sem:'verde',notas:'Paga del 1 al 10.',cuotasArr:[c(1,'2026-04-01',84000,true,'2026-04-08'),cr(2,'2026-05-01','2026-05-10',84000),cr(3,'2026-06-01','2026-06-10',84000),cr(4,'2026-07-01','2026-07-10',84000),cr(5,'2026-08-01','2026-08-10',84000),cr(6,'2026-09-01','2026-09-10',84000),cr(7,'2026-10-01','2026-10-10',84000),cr(8,'2026-11-01','2026-11-10',84000),cr(9,'2026-12-01','2026-12-10',84000)],saldado:false,estadoContacto:'normal',intentosCobro:0,creadoEn:'2026-03-01'},
+  ];
+})();
+let currentFilter='todos', invTab='resumen', statsTab='general';
+let pagoTargetId=null, selectedCuotaIdx=null;
+let modoClaro=false, panicMode=false;
+let editandoId=null;
+
+function save(){
+  localStorage.setItem('ckrn_loans',JSON.stringify(loans));
+  localStorage.setItem('ckrn_blacklist',JSON.stringify(blacklist));
+  localStorage.setItem('ckrn_espera',JSON.stringify(espera));
+  localStorage.setItem('ckrn_gastos',JSON.stringify(gastos));
+  localStorage.setItem('ckrn_efectivo',efectivo);
+}
+function load(){
+  if(!localStorage.getItem('ckrn_seeded_v12')){
+    loans=JSON.parse(JSON.stringify(SEED_LOANS));
+    blacklist=[];espera=[];gastos=[];efectivo=0;
+    save();
+    localStorage.setItem('ckrn_seeded_v12','1');
+  } else {
+    loans=JSON.parse(localStorage.getItem('ckrn_loans')||'[]');
+    blacklist=JSON.parse(localStorage.getItem('ckrn_blacklist')||'[]');
+    espera=JSON.parse(localStorage.getItem('ckrn_espera')||'[]');
+    gastos=JSON.parse(localStorage.getItem('ckrn_gastos')||'[]');
+    efectivo=parseFloat(localStorage.getItem('ckrn_efectivo')||'0');
+  }
+}
+
+function doLogin(){
+  const u=document.getElementById('loginUser').value.trim().toLowerCase();
+  const p=document.getElementById('loginPass').value.trim();
+  if(u===CREDS.user&&p===CREDS.pass){
+    vibrate([30,15,30]);
+    document.getElementById('loginScreen').classList.add('hidden');
+    load(); initApp();
+  } else {
+    document.getElementById('loginError').style.display='block';
+    vibrate([50,20,50,20,50]); playError();
+  }
+}
+document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+
+function getTasa(monto,modalidad,cuotas){
+  if(modalidad==='semanal'){const row=TASAS.semanal.find(r=>monto<=r.max);return{tasa:row?row.t:25,nivel:'Semanal'};}
+  if(modalidad==='quincenal'){return{tasa:TASAS.quincenal[cuotas]||0,nivel:'Quincenal'};}
+  const niveles=[TASAS.mensual.base,TASAS.mensual.media,TASAS.mensual.full,TASAS.mensual.max];
+  const nombres=['Base','Media','Full','Max'];
+  for(let i=0;i<niveles.length;i++){if(monto<=niveles[i].max){return{tasa:niveles[i].t[cuotas]||0,nivel:nombres[i]};}}
+  return{tasa:0,nivel:'—'};
+}
+
+function today(){return new Date().toISOString().split('T')[0];}
+function fmtDate(d){if(!d)return'—';const[y,m,day]=d.split('-');return`${day}/${m}/${y}`;}
+function fmtFechaCuota(c){
+  if(!c)return'—';
+  if(c.tipoFecha==='rango'&&c.fechaDesde&&c.fechaHasta){
+    return`${fmtDate(c.fechaDesde)} al ${fmtDate(c.fechaHasta)}`;
+  }
+  if(c.tipoFecha==='flexible')return`~${fmtDate(c.fecha)} (flex)`;
+  return fmtDate(c.fecha);
+}
+function isVencidoCuota(c){
+  if(c.pagada)return false;
+  if(c.tipoFecha==='rango'&&c.fechaHasta)return c.fechaHasta<today();
+  if(c.tipoFecha==='flexible')return false; // flexible never marks as vencido automatically
+  return c.fecha<today();
+}
+function addDays(dateStr,days){const d=new Date(dateStr);d.setDate(d.getDate()+days);return d.toISOString().split('T')[0];}
+function addMonths(dateStr,months){const d=new Date(dateStr);d.setMonth(d.getMonth()+months);return d.toISOString().split('T')[0];}
+function addWeeks(dateStr,weeks){return addDays(dateStr,weeks*7);}
+function isVencido(dateStr){return dateStr<today();}
+function isMesActual(dateStr){const now=new Date();const d=new Date(dateStr);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();}
+function isProxMes(dateStr){const now=new Date();const d=new Date(dateStr);const prox=new Date(now.getFullYear(),now.getMonth()+1,1);return d.getMonth()===prox.getMonth()&&d.getFullYear()===prox.getFullYear();}
+function isSemana(dateStr){const d=new Date(dateStr);const now=new Date();const diff=(d-now)/86400000;return diff>=0&&diff<=7;}
+
+function generarFechas(fechaInicio,modalidad,cuotas){
+  const fechas=[];
+  for(let i=1;i<=cuotas;i++){
+    if(modalidad==='mensual')fechas.push(addMonths(fechaInicio,i));
+    else if(modalidad==='quincenal')fechas.push(addDays(fechaInicio,i*15));
+    else fechas.push(addWeeks(fechaInicio,i));
+  }
+  return fechas;
+}
+
+function fmt$(n){if(!n&&n!==0)return'$—';return'$'+Math.round(n).toLocaleString('es-AR');}
+function pct(n){return n.toFixed(1)+'%';}
+
+function calcPreview(){
+  const monto=parseFloat(document.getElementById('n-monto').value);
+  const mod=document.getElementById('n-modalidad').value;
+  const cuotas=parseInt(document.getElementById('n-cuotas').value);
+  const custom=parseFloat(document.getElementById('n-cuota-custom').value);
+  const prev=document.getElementById('calcPreview');
+  if(!monto||!cuotas){prev.classList.remove('show');return;}
+  const{tasa,nivel}=getTasa(monto,mod,cuotas);
+  if(!tasa){prev.classList.remove('show');return;}
+  const total=monto*(1+tasa/100);
+  const cuotaCalc=total/(mod==='semanal'?1:cuotas);
+  const cuotaFinal=custom||cuotaCalc;
+  document.getElementById('prev-tasa').textContent=`${tasa}% (${nivel})`;
+  document.getElementById('prev-total').textContent=fmt$(total);
+  document.getElementById('prev-cuota').textContent=fmt$(cuotaCalc);
+  document.getElementById('prev-cuota-final').textContent=fmt$(cuotaFinal);
+  prev.classList.add('show');
+}
+
+function guardarPrestamo(){
+  const nombre=document.getElementById('n-nombre').value.trim();
+  const linea=parseInt(document.getElementById('n-linea').value);
+  const zona=document.getElementById('n-zona').value;
+  const monto=parseFloat(document.getElementById('n-monto').value);
+  const mod=document.getElementById('n-modalidad').value;
+  const cuotas=parseInt(document.getElementById('n-cuotas').value);
+  const fechaInicio=document.getElementById('n-fecha').value||today();
+  const custom=parseFloat(document.getElementById('n-cuota-custom').value);
+  const contrato=document.getElementById('n-contrato').value.trim();
+  const sem=document.getElementById('n-semaforo').value;
+  const notas=document.getElementById('n-notas').value.trim();
+  if(!nombre||!monto||!cuotas){alert('Completá nombre, monto y cuotas.');return;}
+  const{tasa,nivel}=getTasa(monto,mod,cuotas);
+  const total=monto*(1+tasa/100);
+  const cuotaCalc=total/(mod==='semanal'?1:cuotas);
+  const montoCuota=custom||cuotaCalc;
+  const fechas=generarFechas(fechaInicio,mod,mod==='semanal'?1:cuotas);
+  
+  if(editandoId!==null){
+    // EDITAR préstamo existente
+    const idx=loans.findIndex(l=>l.id===editandoId);
+    if(idx>=0){
+      const viejo=loans[idx];
+      // Regenerar cuotas solo si cambian parámetros financieros
+      const cambioFinanciero=(viejo.monto!==monto||viejo.mod!==mod||viejo.cuotas!==cuotas||viejo.montoCuota!==montoCuota);
+      if(cambioFinanciero){
+        const cuotasArr=fechas.map((f,i)=>({num:i+1,fecha:f,monto:montoCuota,pagada:false,pagos:[],fechaPago:null}));
+        loans[idx]={...viejo,nombre,linea,zona,monto,mod,cuotas,tasa,nivel,total,montoCuota,fechaInicio,contrato,sem,notas,cuotasArr,saldado:false};
+      } else {
+        loans[idx]={...viejo,nombre,linea,zona,contrato,sem,notas};
+      }
+    }
+    editandoId=null;
+    document.getElementById('modalNuevoTitulo').textContent='Nuevo Préstamo';
+  } else {
+    // NUEVO préstamo
+    const cuotasArr=fechas.map((f,i)=>({num:i+1,fecha:f,monto:montoCuota,pagada:false,pagos:[],fechaPago:null}));
+    const loan={id:Date.now(),nombre,linea,zona,monto,mod,cuotas,tasa,nivel,total,montoCuota,fechaInicio,contrato,sem,notas,cuotasArr,saldado:false,historial:[],estadoContacto:'normal',intentosCobro:0,creadoEn:today()};
+    loans.push(loan);
+  }
+  save();closeModal('modalNuevo');renderAll();
+  playSuccess();vibrate([20,10,20]);
+  limpiarFormNuevo();
+}
+
+function limpiarFormNuevo(){
+  ['n-nombre','n-monto','n-cuotas','n-cuota-custom','n-contrato','n-notas'].forEach(id=>{document.getElementById(id).value='';});
+  document.getElementById('n-fecha').value='';
+  document.getElementById('calcPreview').classList.remove('show');
+}
+
+function editarPrestamo(id){
+  const l=loans.find(x=>x.id===id);
+  if(!l)return;
+  editandoId=id;
+  closeModal('modalDetalle');
+  const modos=['mensual','quincenal','semanal'];
+  const tiposFecha=['exacta','rango','flexible'];
+  // Inicializar tipoFecha si no existe
+  l.cuotasArr.forEach(c=>{
+    if(!c.tipoFecha)c.tipoFecha='exacta';
+    if(!c.fechaDesde)c.fechaDesde='';
+    if(!c.fechaHasta)c.fechaHasta='';
+  });
+  const cuotasHTML=l.cuotasArr.map((c,i)=>`
+    <div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;">Cuota ${c.num}</div>
+        <label style="display:flex;align-items:center;gap:6px;font-size:0.75rem;"><input type="checkbox" id="ec-pagada-${i}" ${c.pagada?'checked':''}> Pagada</label>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label" style="font-size:0.62rem;">Monto $</label><input class="form-input" id="ec-monto-${i}" type="number" value="${c.monto}" style="font-size:0.85rem;padding:8px;"></div>
+        <div class="form-group"><label class="form-label" style="font-size:0.62rem;">Tipo fecha</label>
+          <select class="form-select" id="ec-tipo-${i}" style="font-size:0.8rem;padding:8px;" onchange="toggleFechaInputs(${i})">
+            <option value="exacta" ${c.tipoFecha==='exacta'?'selected':''}>Fecha exacta</option>
+            <option value="rango" ${c.tipoFecha==='rango'?'selected':''}>Rango (del X al Y)</option>
+            <option value="flexible" ${c.tipoFecha==='flexible'?'selected':''}>Flexible</option>
+          </select>
+        </div>
+      </div>
+      <div id="ec-fecha-exacta-${i}" style="${c.tipoFecha==='exacta'?'':'display:none'}">
+        <div class="form-group"><label class="form-label" style="font-size:0.62rem;">Vence el</label><input class="form-input" id="ec-fecha-${i}" type="date" value="${c.fecha||''}" style="font-size:0.85rem;padding:8px;"></div>
+      </div>
+      <div id="ec-fecha-rango-${i}" style="${c.tipoFecha==='rango'?'':'display:none'}">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label" style="font-size:0.62rem;">Desde</label><input class="form-input" id="ec-desde-${i}" type="date" value="${c.fechaDesde||c.fecha||''}" style="font-size:0.85rem;padding:8px;"></div>
+          <div class="form-group"><label class="form-label" style="font-size:0.62rem;">Hasta</label><input class="form-input" id="ec-hasta-${i}" type="date" value="${c.fechaHasta||''}" style="font-size:0.85rem;padding:8px;"></div>
+        </div>
+      </div>
+      <div id="ec-fecha-flex-${i}" style="${c.tipoFecha==='flexible'?'':'display:none'}">
+        <div class="form-group"><label class="form-label" style="font-size:0.62rem;">Próximo cobro (manual)</label><input class="form-input" id="ec-flex-${i}" type="date" value="${c.fecha||''}" style="font-size:0.85rem;padding:8px;"></div>
+        <div style="font-size:0.7rem;color:var(--gold);margin-bottom:8px;">⚡ Actualizá esta fecha cada vez que sepas cuándo cobra</div>
+      </div>
+      <div class="form-group"><label class="form-label" style="font-size:0.62rem;">Fecha de pago (si pagó)</label><input class="form-input" id="ec-fpago-${i}" type="date" value="${c.fechaPago||''}" style="font-size:0.85rem;padding:8px;"></div>
+    </div>
+  `).join('');
+
+  document.getElementById('editContent').innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <button onclick="closeModal('modalEditar')" style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:8px 14px;color:var(--text);font-size:0.82rem;font-weight:700;cursor:pointer;">← Cancelar</button>
+      <button onclick="guardarEdicionCompleta(${id})" class="btn btn-teal" style="padding:8px 14px;font-size:0.82rem;">💾 Guardar todo</button>
+    </div>
+    <div class="modal-title">Editar préstamo completo</div>
+    <div class="form-group"><label class="form-label">Nombre</label><input class="form-input" id="ec-nombre" value="${l.nombre}"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Línea</label>
+        <select class="form-select" id="ec-linea">
+          <option value="1" ${l.linea==1?'selected':''}>L1 — Vos</option>
+          <option value="2" ${l.linea==2?'selected':''}>L2 — David</option>
+          <option value="3" ${l.linea==3?'selected':''}>L3 — Martín</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Zona</label>
+        <select class="form-select" id="ec-zona">
+          <option value="Mercedes" ${l.zona==='Mercedes'?'selected':''}>Mercedes</option>
+          <option value="Gowland" ${l.zona==='Gowland'?'selected':''}>Gowland</option>
+          <option value="Luján" ${l.zona==='Luján'?'selected':''}>Luján</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Monto prestado $</label><input class="form-input" id="ec-monto-total" type="number" value="${l.monto}"></div>
+      <div class="form-group"><label class="form-label">Modalidad</label>
+        <select class="form-select" id="ec-modalidad">
+          ${modos.map(m=>`<option value="${m}" ${l.mod===m?'selected':''}>${m}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label class="form-label">Notas</label><input class="form-input" id="ec-notas" value="${l.notas||''}"></div>
+    <div class="form-group"><label class="form-label">Semáforo</label>
+      <select class="form-select" id="ec-sem">
+        <option value="verde" ${l.sem==='verde'?'selected':''}>🟢 Verde</option>
+        <option value="amarillo" ${l.sem==='amarillo'?'selected':''}>🟡 Amarillo</option>
+        <option value="rojo" ${l.sem==='rojo'?'selected':''}>🔴 Rojo</option>
+      </select>
+    </div>
+    <div class="sec-title" style="margin-top:20px;">Cuotas (${l.cuotasArr.length})</div>
+    ${cuotasHTML}
+    <button class="btn btn-outline btn-full" style="margin-top:10px;" onclick="agregarCuotaEdit(${id})">+ Agregar cuota</button>
+    <div class="modal-actions" style="margin-top:16px;">
+      <button class="btn btn-outline" onclick="closeModal('modalEditar')">Cancelar</button>
+      <button class="btn btn-teal" onclick="guardarEdicionCompleta(${id})">💾 Guardar todo</button>
+    </div>
+    <div style="height:40px;"></div>
+  `;
+  document.getElementById('modalEditar').classList.add('open');
+}
+
+function toggleFechaInputs(i){
+  const tipo=document.getElementById('ec-tipo-'+i).value;
+  document.getElementById('ec-fecha-exacta-'+i).style.display=tipo==='exacta'?'':'none';
+  document.getElementById('ec-fecha-rango-'+i).style.display=tipo==='rango'?'':'none';
+  document.getElementById('ec-fecha-flex-'+i).style.display=tipo==='flexible'?'':'none';
+}
+
+function guardarEdicionCompleta(id){
+  const l=loans.find(x=>x.id===id);
+  if(!l)return;
+  l.nombre=document.getElementById('ec-nombre').value.trim();
+  l.linea=parseInt(document.getElementById('ec-linea').value);
+  l.zona=document.getElementById('ec-zona').value;
+  l.monto=parseFloat(document.getElementById('ec-monto-total').value)||l.monto;
+  l.mod=document.getElementById('ec-modalidad').value;
+  l.notas=document.getElementById('ec-notas').value.trim();
+  l.sem=document.getElementById('ec-sem').value;
+  // Cuotas
+  l.cuotasArr.forEach((c,i)=>{
+    const monto=parseFloat(document.getElementById('ec-monto-'+i).value)||c.monto;
+    const tipo=document.getElementById('ec-tipo-'+i).value;
+    const pagada=document.getElementById('ec-pagada-'+i).checked;
+    const fpago=document.getElementById('ec-fpago-'+i).value;
+    c.monto=monto;
+    c.tipoFecha=tipo;
+    if(tipo==='exacta'){
+      c.fecha=document.getElementById('ec-fecha-'+i).value;
+      c.fechaDesde='';c.fechaHasta='';
+    } else if(tipo==='rango'){
+      c.fechaDesde=document.getElementById('ec-desde-'+i).value;
+      c.fechaHasta=document.getElementById('ec-hasta-'+i).value;
+      c.fecha=c.fechaHasta||c.fechaDesde;
+    } else {
+      c.fecha=document.getElementById('ec-flex-'+i).value;
+      c.fechaDesde='';c.fechaHasta='';
+    }
+    if(pagada&&!c.pagada){
+      c.pagos=c.pagos||[];
+      if(!c.pagos.length)c.pagos.push({monto:c.monto,fecha:fpago||today(),nota:'Pago registrado'});
+      c.pagada=true;
+      c.fechaPago=fpago||today();
+    } else if(!pagada&&c.pagada){
+      c.pagada=false;c.fechaPago=null;c.pagos=[];
+    } else if(pagada&&fpago){
+      c.fechaPago=fpago;
+      if(c.pagos&&c.pagos.length)c.pagos[0].fecha=fpago;
+    }
+  });
+  l.cuotas=l.cuotasArr.length;
+  l.montoCuota=l.cuotasArr[0]?.monto||0;
+  l.total=l.cuotasArr.reduce((s,c)=>s+c.monto,0);
+  l.saldado=l.cuotasArr.every(c=>c.pagada);
+  save();closeModal('modalEditar');renderAll();playSuccess();vibrate([20,10,20]);
+  editandoId=null;
+}
+
+function agregarCuotaEdit(id){
+  const l=loans.find(x=>x.id===id);
+  if(!l)return;
+  const ult=l.cuotasArr[l.cuotasArr.length-1];
+  const nuevaFecha=ult?addMonths(ult.fecha,1):today();
+  l.cuotasArr.push({num:l.cuotasArr.length+1,fecha:nuevaFecha,monto:ult?.monto||0,pagada:false,pagos:[],fechaPago:null,tipoFecha:'exacta'});
+  save();editarPrestamo(id);
+}
+
+function getLoanStatus(loan){
+  if(loan.saldado)return'saldado';
+  const pendientes=loan.cuotasArr.filter(c=>!c.pagada);
+  if(pendientes.length===0)return'saldado';
+  const vencidas=pendientes.filter(c=>isVencidoCuota(c));
+  if(vencidas.length>0)return'vencido';
+  return'activo';
+}
+function totalPagado(loan){return loan.cuotasArr.reduce((s,c)=>s+c.pagos.reduce((a,p)=>a+p.monto,0),0);}
+function totalPagadoCuota(cuota){return(cuota.pagos||[]).reduce((s,p)=>s+p.monto,0);}
+
+function renderLoans(){
+  const container=document.getElementById('loansList');
+  const q=(document.getElementById('searchInput').value||'').toLowerCase();
+  let lista=loans.filter(l=>l.nombre.toLowerCase().includes(q));
+  if(currentFilter==='activo')lista=lista.filter(l=>getLoanStatus(l)==='activo');
+  else if(currentFilter==='vencido')lista=lista.filter(l=>getLoanStatus(l)==='vencido');
+  else if(currentFilter==='saldado')lista=lista.filter(l=>getLoanStatus(l)==='saldado');
+  else if(currentFilter==='l1')lista=lista.filter(l=>l.linea==1);
+  else if(currentFilter==='l2')lista=lista.filter(l=>l.linea==2);
+  else if(currentFilter==='l3')lista=lista.filter(l=>l.linea==3);
+  if(!lista.length){container.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted)">No hay préstamos</div>';return;}
+  container.innerHTML=lista.map(loan=>{
+    const st=getLoanStatus(loan);
+    const pagadas=loan.cuotasArr.filter(c=>c.pagada).length;
+    const total=loan.cuotasArr.length;
+    const p=total>0?(pagadas/total*100):0;
+    const semColor=loan.sem==='verde'?'sem-verde':loan.sem==='amarillo'?'sem-amarillo':'sem-rojo';
+    const stColor=st==='saldado'?'var(--green)':st==='vencido'?'var(--red)':'var(--muted)';
+    const prox=loan.cuotasArr.find(c=>!c.pagada);
+    return`<div class="loan-card l${loan.linea}" onclick="openDetalle(${loan.id})">
+      <div class="loan-top">
+        <div>
+          <div class="loan-nombre">${loan.nombre}</div>
+          <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;">
+            <span class="loan-tag linea${loan.linea}">L${loan.linea}</span>
+            <span class="loan-tag">${loan.mod}</span>
+            <span class="loan-tag">${loan.nivel}</span>
+            <span class="loan-tag zona-${loan.zona.toLowerCase()}">${loan.zona}</span>
+            <span style="color:${stColor};font-size:0.7rem;font-weight:700;align-self:center">${st.toUpperCase()}</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+          <div class="semaforo ${semColor}"></div>
+          <div class="loan-monto">${fmt$(loan.monto)}</div>
+        </div>
+      </div>
+      ${prox&&!loan.saldado?`<div style="font-size:0.72rem;color:var(--muted)">Próx. venc: <strong style="color:${isVencidoCuota(prox)?'var(--red)':'var(--text)'}">${fmtFechaCuota(prox)}</strong> · ${fmt$(prox.monto)}</div>`:''}
+      <div class="cuota-bar">
+        <div class="cuota-bar-track"><div class="cuota-bar-fill" style="width:${p}%"></div></div>
+        <div class="cuota-bar-lbl"><span>${pagadas}/${total} cuotas</span><span>${fmt$(totalPagado(loan))} / ${fmt$(loan.total)}</span></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openDetalle(id){
+  const loan=loans.find(l=>l.id===id);
+  if(!loan)return;
+  pagoTargetId=id;vibrate([10]);
+  const st=getLoanStatus(loan);
+  const invDist=LINEAS[loan.linea].inv;
+
+  let cuotasHTML=loan.cuotasArr.map((c,i)=>{
+    const pagado=totalPagadoCuota(c);
+    const falta=Math.max(0,c.monto-pagado);
+    let estadoClass='ce-pendiente',estadoTxt='Pendiente';
+    if(c.pagada){estadoClass='ce-pagada';estadoTxt='Pagada';}
+    else if(pagado>0){estadoClass='ce-parcial';estadoTxt=`Parcial ${fmt$(pagado)}`;}
+    else if(isVencido(c.fecha)){estadoClass='ce-vencida';estadoTxt='Vencida';}
+    let pagosHTML='';
+    if(c.pagos&&c.pagos.length>0){
+      pagosHTML=`<div class="pago-acum">${c.pagos.map(p=>`<div class="pago-acum-item"><span>${fmtDate(p.fecha)}: ${fmt$(p.monto)}</span><span style="color:var(--muted)">${p.nota||''}</span></div>`).join('')}${falta>0&&!c.pagada?`<div class="pago-acum-item" style="color:var(--red)"><span>Falta</span><span>${fmt$(falta)}</span></div>`:''}</div>`;
+    }
+    return`<div class="cuota-item" onclick="selectCuotaPago(${i})">
+      <div class="cuota-num">${c.num}</div>
+      <div class="cuota-info">
+        <div class="cuota-fecha">${fmtDate(c.fecha)}${c.fechaPago?` · Pagó: ${fmtDate(c.fechaPago)}`:''}</div>
+        <div class="cuota-monto">${fmt$(c.monto)}</div>
+        ${pagosHTML}
+      </div>
+      <span class="cuota-estado ${estadoClass}">${estadoTxt}</span>
+    </div>`;
+  }).join('');
+
+  // Distribución correcta: solo del interés para Karni
+  const intFrac=loan.total>0?(loan.total-loan.monto)/loan.total:0;
+  const capFrac=1-intFrac;
+  let invHTML=Object.entries(invDist).map(([k,p])=>{
+    const nom=k==='yo'?'Vos':k==='david'?'David':'Martín';
+    // Karni gets % of interest only; investor gets capital + % of interest
+    let cuotaShare;
+    if(k==='yo'&&loan.linea!==1){
+      cuotaShare=loan.montoCuota*intFrac*p;
+    } else {
+      cuotaShare=loan.montoCuota*p;
+    }
+    return`<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.82rem;"><span>${nom}</span><span style="font-weight:700">${fmt$(cuotaShare)} / cuota</span></div>`;
+  }).join('');
+
+  const waMsg=encodeURIComponent(`Hola ${loan.nombre.split(' ')[0]} 👋, te recuerdo que tenés una cuota de *${fmt$(loan.montoCuota)}* venciendo pronto. Cualquier consulta escribime. ¡Gracias!`);
+
+  document.getElementById('detalleContent').innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <button onclick="closeModal('modalDetalle')" style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:8px 14px;color:var(--text);font-size:0.82rem;font-weight:700;cursor:pointer;">← Volver</button>
+      <button onclick="editarPrestamo(${loan.id})" class="btn btn-gold" style="padding:8px 14px;font-size:0.82rem;">✏️ Editar</button>
+    </div>
+    <div style="margin-bottom:16px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;">${loan.nombre}</div>
+      <div style="font-size:0.75rem;color:var(--muted)">${loan.zona} · ${loan.mod} · ${loan.nivel}</div>
+    </div>
+    <div class="stat-grid" style="margin-bottom:12px;">
+      <div class="stat-card"><div class="stat-lbl">Prestado</div><div class="stat-num">${fmt$(loan.monto)}</div></div>
+      <div class="stat-card"><div class="stat-lbl">Total</div><div class="stat-num" style="color:var(--teal)">${fmt$(loan.total)}</div></div>
+      <div class="stat-card"><div class="stat-lbl">Cobrado</div><div class="stat-num" style="color:var(--green)">${fmt$(totalPagado(loan))}</div></div>
+      <div class="stat-card"><div class="stat-lbl">Pendiente</div><div class="stat-num" style="color:${st==='vencido'?'var(--red)':'var(--gold)'}">${fmt$(loan.total-totalPagado(loan))}</div></div>
+    </div>
+    ${loan.contrato?`<div style="font-size:0.78rem;color:var(--muted);margin-bottom:8px;">📄 Contrato: <strong>${loan.contrato}</strong></div>`:''}
+    ${loan.notas?`<div style="font-size:0.78rem;color:var(--muted);margin-bottom:8px;">📝 ${loan.notas}</div>`:''}
+    <div style="background:var(--s2);border-radius:10px;padding:12px;margin-bottom:12px;">
+      <div style="font-size:0.68rem;font-weight:700;color:var(--muted);margin-bottom:8px;">DISTRIBUCIÓN POR CUOTA</div>
+      ${invHTML}
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+      <select onchange="cambiarSemaforo(${loan.id},this.value)" style="flex:1;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text);font-size:0.8rem;">
+        <option value="verde" ${loan.sem==='verde'?'selected':''}>🟢 Verde</option>
+        <option value="amarillo" ${loan.sem==='amarillo'?'selected':''}>🟡 Amarillo</option>
+        <option value="rojo" ${loan.sem==='rojo'?'selected':''}>🔴 Rojo</option>
+      </select>
+      <select onchange="cambiarContacto(${loan.id},this.value)" style="flex:1;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text);font-size:0.8rem;">
+        <option value="normal" ${loan.estadoContacto==='normal'?'selected':''}>Normal</option>
+        <option value="llamado" ${loan.estadoContacto==='llamado'?'selected':''}>Llamado</option>
+        <option value="no-atiende" ${loan.estadoContacto==='no-atiende'?'selected':''}>No atiende</option>
+        <option value="prometio" ${loan.estadoContacto==='prometio'?'selected':''}>Prometió pagar</option>
+        <option value="en-proceso" ${loan.estadoContacto==='en-proceso'?'selected':''}>En proceso</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <button class="btn btn-teal" style="flex:1;" onclick="openPago(${loan.id})">💰 Pago</button>
+      <a href="https://wa.me/?text=${waMsg}" target="_blank" class="btn btn-outline" style="flex:1;text-decoration:none;">📱 WA</a>
+      <button class="btn btn-red" style="flex:0.5;" onclick="addBlacklist(${loan.id})">🚫</button>
+    </div>
+    <div style="font-size:0.68rem;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:1px;">CUOTAS</div>
+    ${cuotasHTML}
+    <button class="btn btn-red btn-full" style="margin-top:16px;" onclick="eliminarPrestamo(${loan.id})">🗑 Eliminar préstamo</button>
+    <div style="height:20px;"></div>`;
+  document.getElementById('modalDetalle').classList.add('open');
+}
+
+function selectCuotaPago(idx){
+  selectedCuotaIdx=idx;
+  document.querySelectorAll('.cuota-item').forEach((el,i)=>{el.style.background=i===idx?'rgba(0,180,160,0.15)':'';});
+}
+function cambiarSemaforo(id,val){const l=loans.find(x=>x.id===id);if(l){l.sem=val;save();renderLoans();}}
+function cambiarContacto(id,val){const l=loans.find(x=>x.id===id);if(l){l.estadoContacto=val;l.intentosCobro=(l.intentosCobro||0)+1;save();}}
+function addBlacklist(id){
+  const l=loans.find(x=>x.id===id);if(!l)return;
+  if(confirm(`¿Agregar a ${l.nombre} a la blacklist?`)){blacklist.push({nombre:l.nombre,motivo:'Sin especificar',fecha:today()});save();closeModal('modalDetalle');vibrate([30,10,30]);alert('Agregado a blacklist.');}
+}
+function eliminarPrestamo(id){
+  if(!confirm('¿Eliminar este préstamo?'))return;
+  loans=loans.filter(l=>l.id!==id);save();closeModal('modalDetalle');renderAll();
+}
+
+function openPago(id){
+  pagoTargetId=id;selectedCuotaIdx=null;
+  const l=loans.find(x=>x.id===id);
+  const pendientes=l.cuotasArr.filter(c=>!c.pagada);
+  document.getElementById('pagoCuotasList').innerHTML=pendientes.length?pendientes.map(c=>{
+    const pagado=totalPagadoCuota(c);const falta=Math.max(0,c.monto-pagado);
+    return`<div class="cuota-item" onclick="selectCuotaPago(${c.num-1})" style="cursor:pointer;">
+      <div class="cuota-num">${c.num}</div>
+      <div class="cuota-info">
+        <div class="cuota-fecha">${fmtDate(c.fecha)}</div>
+        <div class="cuota-monto">${fmt$(c.monto)}${pagado>0?` <span style="color:var(--green);font-size:0.75rem">(pagado ${fmt$(pagado)})</span>`:''}</div>
+        ${falta<c.monto&&falta>0?`<div style="font-size:0.72rem;color:var(--red)">Falta: ${fmt$(falta)}</div>`:''}
+      </div>
+    </div>`;
+  }).join(''):'<p style="color:var(--muted);font-size:0.85rem">Todas las cuotas están pagadas.</p>';
+  document.getElementById('pagoMonto').value=l.montoCuota.toFixed(0);
+  document.getElementById('pagoFecha').value=today();
+  document.getElementById('pagoNota').value='';
+  closeModal('modalDetalle');
+  document.getElementById('modalPago').classList.add('open');
+}
+
+function confirmarPago(){
+  const monto=parseFloat(document.getElementById('pagoMonto').value);
+  if(!monto){alert('Ingresá el monto');return;}
+  const l=loans.find(x=>x.id===pagoTargetId);
+  const fecha=document.getElementById('pagoFecha').value||today();
+  const nota=document.getElementById('pagoNota').value||'Pago registrado';
+  if(selectedCuotaIdx!==null&&l.cuotasArr[selectedCuotaIdx]){
+    const c=l.cuotasArr[selectedCuotaIdx];
+    c.pagos=c.pagos||[];c.pagos.push({monto,fecha,nota});
+    const totalPag=totalPagadoCuota(c);
+    if(totalPag>=c.monto*0.99){c.pagada=true;c.fechaPago=fecha;}
+  } else {
+    let restante=monto;
+    for(let c of l.cuotasArr){
+      if(!c.pagada&&restante>0){
+        c.pagos=c.pagos||[];
+        const falta=Math.max(0,c.monto-totalPagadoCuota(c));
+        const aplicar=Math.min(restante,falta);
+        c.pagos.push({monto:aplicar,fecha,nota});restante-=aplicar;
+        if(totalPagadoCuota(c)>=c.monto*0.99){c.pagada=true;c.fechaPago=fecha;}
+      }
+    }
+  }
+  if(l.cuotasArr.every(c=>c.pagada)){l.saldado=true;confetti();}
+  save();closeModal('modalPago');renderAll();playSuccess();vibrate([20,10,20]);
+}
+
+function renderDashboard(){
+  let total=0,cobrado=0,pendiente=0,vencidos=0;
+  loans.forEach(l=>{total+=l.monto;const pag=totalPagado(l);cobrado+=pag;pendiente+=Math.max(0,l.total-pag);if(getLoanStatus(l)==='vencido')vencidos++;});
+  document.getElementById('s-total').textContent=fmt$(total);
+  document.getElementById('s-cobrado').textContent=fmt$(cobrado);
+  document.getElementById('s-pendiente').textContent=fmt$(pendiente);
+  document.getElementById('s-vencidos').textContent=vencidos;
+  document.getElementById('s-efectivo').textContent=fmt$(efectivo);
+
+  const lineasEl=document.getElementById('lineasResumen');
+  lineasEl.innerHTML=[1,2,3].map(n=>{
+    const ll=loans.filter(l=>l.linea==n);
+    const lt=ll.reduce((s,l)=>s+l.monto,0);
+    const lp=ll.reduce((s,l)=>s+totalPagado(l),0);
+    const lpen=ll.reduce((s,l)=>s+Math.max(0,l.total-totalPagado(l)),0);
+    const c=LINEAS[n].color;
+    return`<div class="card" style="border-left:3px solid ${c};">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;">Línea ${n}</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:${c}">${fmt$(lt)}</div>
+      </div>
+      <div style="display:flex;gap:8px;font-size:0.75rem;color:var(--muted);">
+        <span>✅ ${fmt$(lp)}</span><span>⏳ ${fmt$(lpen)}</span><span>${ll.length} préstamos</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  let proyMes=0,proyProx=0;
+  loans.forEach(l=>{l.cuotasArr.forEach(c=>{if(!c.pagada){if(isMesActual(c.fecha))proyMes+=c.monto;if(isProxMes(c.fecha))proyProx+=c.monto;}});});
+  document.getElementById('s-proyMes').textContent=fmt$(proyMes);
+  document.getElementById('s-proyProx').textContent=fmt$(proyProx);
+
+  const proxSem=[];
+  loans.forEach(l=>{l.cuotasArr.forEach(c=>{if(!c.pagada&&isSemana(c.fecha))proxSem.push({nombre:l.nombre,cuota:c});});});
+  document.getElementById('venceSemana').innerHTML=proxSem.length?proxSem.map(x=>`<div class="alert-banner info">📅 <strong>${x.nombre}</strong> · ${fmtDate(x.cuota.fecha)} · ${fmt$(x.cuota.monto)}</div>`).join(''):'<div style="color:var(--muted);font-size:0.82rem;padding:8px 0">Sin vencimientos esta semana</div>';
+
+  const total_loans=loans.length;
+  const morosos=loans.filter(l=>getLoanStatus(l)==='vencido').length;
+  document.getElementById('s-morosidad').textContent=total_loans?pct(morosos/total_loans*100):'0%';
+  const saldados=loans.filter(l=>l.saldado);
+  const renovados=saldados.filter(l=>loans.filter(x=>x.nombre===l.nombre).length>1);
+  document.getElementById('s-renovacion').textContent=saldados.length?pct(renovados.length/saldados.length*100):'0%';
+  document.getElementById('s-ticket').textContent=total_loans?fmt$(total/total_loans):'$0';
+  const mesActual=new Date().toISOString().slice(0,7);
+  document.getElementById('s-nuevos').textContent=loans.filter(l=>l.creadoEn&&l.creadoEn.slice(0,7)===mesActual).length;
+  let mejor=null,mejorPct=-1;
+  loans.forEach(l=>{const pagadas=l.cuotasArr.filter(c=>c.pagada).length;const t2=l.cuotasArr.length;if(t2>0&&pagadas/t2>mejorPct){mejorPct=pagadas/t2;mejor=l.nombre;}});
+  document.getElementById('s-mejor').textContent=mejor||'—';
+
+  // Crecimiento: comparar cobrado este mes vs mes anterior
+  const mesAnt=new Date();mesAnt.setMonth(mesAnt.getMonth()-1);const keyAnt=mesAnt.toISOString().slice(0,7);
+  let cobMes=0,cobAnt=0;
+  loans.forEach(l=>l.cuotasArr.forEach(c=>{
+    if(c.pagada&&c.fechaPago){
+      if(c.fechaPago.slice(0,7)===mesActual)cobMes+=c.monto;
+      if(c.fechaPago.slice(0,7)===keyAnt)cobAnt+=c.monto;
+    }
+  }));
+  const crecimiento=cobAnt>0?((cobMes-cobAnt)/cobAnt*100):0;
+  document.getElementById('s-crecimiento').textContent=pct(crecimiento);
+
+  const banners=document.getElementById('alertBanners');
+  let alertHTML='';
+  if(morosos>0)alertHTML+=`<div class="alert-banner">🚨 ${morosos} préstamo${morosos>1?'s':''} vencido${morosos>1?'s':''}</div>`;
+  banners.innerHTML=alertHTML;
+  document.getElementById('notifBadge').className='notif-badge'+(morosos>0?' on':'');
+}
+
+function renderChart(){
+  const meses=[];
+  for(let i=5;i>=0;i--){const d=new Date();d.setMonth(d.getMonth()-i);meses.push({key:d.toISOString().slice(0,7),lbl:d.toLocaleString('es',{month:'short'})});}
+  const vals=meses.map(m=>{
+    let sum=0;
+    loans.forEach(l=>{
+      l.cuotasArr.forEach(c=>{
+        // Check fechaPago first, then individual pagos
+        if(c.pagada&&c.fechaPago&&c.fechaPago.slice(0,7)===m.key){sum+=c.monto;return;}
+        if(c.pagos&&c.pagos.length){
+          c.pagos.forEach(p=>{if(p.fecha&&p.fecha.slice(0,7)===m.key)sum+=p.monto;});
+        }
+      });
+    });
+    return sum;
+  });
+  const maxV=Math.max(...vals,1);
+  document.getElementById('chartBars').innerHTML=vals.map(v=>`<div class="chart-bar"><div class="chart-bar-fill" style="height:${v/maxV*100}%"></div></div>`).join('');
+  document.getElementById('chartLabels').innerHTML=meses.map(m=>`<div class="chart-label">${m.lbl}</div>`).join('');
+}
+
+function renderAlertas(){
+  const el=document.getElementById('alertasList');let html='';const hoy=today();
+  loans.forEach(l=>{
+    l.cuotasArr.forEach(c=>{
+      if(c.pagada)return;
+      if(c.fecha<hoy)html+=`<div class="alert-banner">🚨 <strong>${l.nombre}</strong> · Cuota ${c.num} VENCIDA · ${fmtDate(c.fecha)} · ${fmt$(c.monto)}</div>`;
+      else if(c.fecha===hoy)html+=`<div class="alert-banner warn">⚠️ <strong>${l.nombre}</strong> · Cuota ${c.num} vence HOY · ${fmt$(c.monto)}</div>`;
+      else if(isSemana(c.fecha))html+=`<div class="alert-banner info">📅 <strong>${l.nombre}</strong> · Cuota ${c.num} · ${fmtDate(c.fecha)} · ${fmt$(c.monto)}</div>`;
+    });
+    if((l.intentosCobro||0)>=3)html+=`<div class="alert-banner">📵 <strong>${l.nombre}</strong> · 3+ intentos de cobro fallidos</div>`;
+  });
+  el.innerHTML=html||'<div style="color:var(--muted);padding:16px 0;font-size:0.85rem">✅ Sin alertas activas</div>';
+  renderCalendario();
+}
+
+function renderCalendario(){
+  const el=document.getElementById('calPanel');const now=new Date();
+  const year=now.getFullYear(),month=now.getMonth();
+  const firstDay=new Date(year,month,1).getDay();
+  const daysInMonth=new Date(year,month+1,0).getDate();
+  const cobrosDia={};
+  loans.forEach(l=>{l.cuotasArr.forEach(c=>{if(!c.pagada&&c.fecha.slice(0,7)===`${year}-${String(month+1).padStart(2,'0')}`){const d=parseInt(c.fecha.slice(8));cobrosDia[d]=(cobrosDia[d]||0)+c.monto;}});});
+  const dayNames=['D','L','M','M','J','V','S'];
+  let html=`<div class="cal-header">${dayNames.map(d=>`<div class="cal-day-name">${d}</div>`).join('')}</div><div class="cal-grid">`;
+  for(let i=0;i<firstDay;i++)html+='<div></div>';
+  for(let d=1;d<=daysInMonth;d++){
+    const isToday=d===now.getDate();const hasCobro=cobrosDia[d];
+    const dateStr=`${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isVenc=dateStr<today()&&hasCobro;
+    html+=`<div class="cal-day ${isToday?'today':''} ${hasCobro&&!isToday?'has-cobro':''} ${isVenc?'vencido':''}" title="${hasCobro?fmt$(hasCobro):''}">${d}${hasCobro?'<div class="cal-dot"></div>':''}</div>`;
+  }
+  html+='</div>';el.innerHTML=html;
+}
+
+// ============================================================
+// INVERSORES — LÓGICA CORREGIDA
+// ============================================================
+let capitalInicial=JSON.parse(localStorage.getItem('ckrn_capital')||'{"david":3000000,"martin":4000000,"yo":3500000}');
+function saveCapital(){localStorage.setItem('ckrn_capital',JSON.stringify(capitalInicial));}
+
+function editCapitalInicial(key){
+  const nom=key==='david'?'David':key==='martin'?'Martín':'Vos';
+  const actual=capitalInicial[key]||0;
+  // Crear modal inline
+  const existing=document.getElementById('modalCapital');
+  if(existing)existing.remove();
+  const m=document.createElement('div');
+  m.id='modalCapital';
+  m.className='modal open';
+  m.innerHTML=`<div class="modal-box"><div class="modal-handle"></div>
+    <div class="modal-title">Capital — ${nom}</div>
+    <div class="form-group"><label class="form-label">Monto inicial ($)</label>
+    <input class="form-input" id="capInput" type="number" value="${actual}" placeholder="0"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="document.getElementById('modalCapital').remove()">Cancelar</button>
+      <button class="btn btn-teal" onclick="guardarCapital('${key}')">Guardar</button>
+    </div></div>`;
+  document.body.appendChild(m);
+  m.addEventListener('click',e=>{if(e.target===m)m.remove();});
+  setTimeout(()=>document.getElementById('capInput')?.focus(),100);
+}
+function guardarCapital(key){
+  const val=parseFloat(document.getElementById('capInput').value);
+  if(!isNaN(val)){capitalInicial[key]=val;saveCapital();renderInversores();}
+  document.getElementById('modalCapital')?.remove();
+}
+
+function renderInversores(){
+  const el=document.getElementById('invPanel');
+  if(invTab==='espera'){renderEspera();return;}
+  if(invTab==='blacklist'){renderBlacklist();return;}
+  if(invTab==='gastos'){renderGastos();return;}
+
+  // ── TU GANANCIA (Karni) ──
+  // Solo muestra ganancia cuando cada línea ya recuperó su capital.
+  // L2 = 30% del total cobrado ese mes, L3 = 25%. L1 = 100% todo.
+  const capL1=capitalInicial.yo||0, capL2=capitalInicial.david||0, capL3=capitalInicial.martin||0;
+  const hoyStrMio=today();
+  const ahoraMio=new Date();
+  const mesKeyMio=ahoraMio.toISOString().slice(0,7);
+  const finSemMio=addDays(hoyStrMio,7);
+
+  let cobradoL1=0,cobradoL2=0,cobradoL3=0;
+  let mesL1Total=0,mesL2Total=0,mesL3Total=0;
+  let semL1Total=0,semL2Total=0,semL3Total=0;
+  loans.forEach(l=>{
+    const paid=totalPagado(l);
+    if(l.linea==1)cobradoL1+=paid;
+    else if(l.linea==2)cobradoL2+=paid;
+    else if(l.linea==3)cobradoL3+=paid;
+    l.cuotasArr.forEach(c=>{
+      if(c.pagada)return;
+      const inMes=c.fecha.slice(0,7)===mesKeyMio;
+      const inSem=c.fecha>=hoyStrMio&&c.fecha<=finSemMio;
+      if(l.linea==1){if(inMes)mesL1Total+=c.monto;if(inSem)semL1Total+=c.monto;}
+      else if(l.linea==2){if(inMes)mesL2Total+=c.monto;if(inSem)semL2Total+=c.monto;}
+      else if(l.linea==3){if(inMes)mesL3Total+=c.monto;if(inSem)semL3Total+=c.monto;}
+    });
+  });
+  // Ganancia = aplicar % solo después de recuperar capital
+  const gL2Mes=cobradoL2>=capL2?mesL2Total*0.30:Math.max(0,(cobradoL2+mesL2Total)-capL2)*0.30;
+  const gL3Mes=cobradoL3>=capL3?mesL3Total*0.25:Math.max(0,(cobradoL3+mesL3Total)-capL3)*0.25;
+  const gL2Sem=cobradoL2>=capL2?semL2Total*0.30:0;
+  const gL3Sem=cobradoL3>=capL3?semL3Total*0.25:0;
+  const mesMioL1=cobradoL1>=capL1?mesL1Total:Math.max(0,(cobradoL1+mesL1Total)-capL1);
+  const semMioL1=cobradoL1>=capL1?semL1Total:0;
+  const mesMioTotal=mesMioL1+gL2Mes+gL3Mes;
+  const semMioTotal=semMioL1+gL2Sem+gL3Sem;
+
+  let html=`
+  <div class="card" style="border:1.5px solid var(--teal);margin-bottom:16px;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:10px;">💰 TU GANANCIA</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+      <div style="flex:1;background:var(--s2);border-radius:10px;padding:10px;text-align:center;">
+        <div style="font-size:0.6rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:4px;">L1 — 100%</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--blue)">${fmt$(mesMioL1)}</div>
+        <div style="font-size:0.58rem;color:var(--muted)">este mes</div>
+      </div>
+      <div style="flex:1;background:var(--s2);border-radius:10px;padding:10px;text-align:center;">
+        <div style="font-size:0.6rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:4px;">L2 — 30% ↑</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold)">${fmt$(gL2Mes)}</div>
+        <div style="font-size:0.58rem;color:var(--muted)">este mes</div>
+      </div>
+      <div style="flex:1;background:var(--s2);border-radius:10px;padding:10px;text-align:center;">
+        <div style="font-size:0.6rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:4px;">L3 — 25% ↑</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--green)">${fmt$(gL3Mes)}</div>
+        <div style="font-size:0.58rem;color:var(--muted)">este mes</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <div style="flex:1;padding:10px;background:rgba(0,180,160,0.1);border-radius:10px;text-align:center;">
+        <div style="font-size:0.62rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:2px;">Esta semana</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--teal)">${fmt$(semMioTotal)}</div>
+      </div>
+      <div style="flex:1;padding:10px;background:rgba(0,180,160,0.1);border-radius:10px;text-align:center;">
+        <div style="font-size:0.62rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:2px;">Este mes</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--teal)">${fmt$(mesMioTotal)}</div>
+      </div>
+    </div>
+  </div>`;
+
+  // ── TARJETAS INVERSORES ──
+  // David: puso 100% del capital de L2, gana 70% del interés
+  // Martín: puso 100% del capital de L3, gana 50% del interés
+  // Yo: 100% de L1
+  const configs=[
+    {key:'yo',    nombre:'Vos',    color:'var(--blue)',  linea:1, profitPct:1.00, karniPct:0},
+    {key:'david', nombre:'David',  color:'var(--gold)',  linea:2, profitPct:0.70, karniPct:0.30},
+    {key:'martin',nombre:'Martín', color:'var(--green)', linea:3, profitPct:0.55, karniPct:0.25},
+  ];
+
+  html+=configs.map(inv=>{
+    const capInicial=capitalInicial[inv.key]||0;
+    const loansLinea=loans.filter(l=>l.linea==inv.linea);
+
+    let totalPrestado=0,totalCobrado=0,totalPendiente=0;
+    loansLinea.forEach(l=>{
+      totalPrestado+=l.monto;
+      totalCobrado+=totalPagado(l);
+      totalPendiente+=Math.max(0,l.total-totalPagado(l));
+    });
+
+    // En la calle = suma de lo que falta cobrar de cada préstamo activo
+    // (nunca negativo, porque si ya cobró más del prestado del préstamo individual, no está en la calle)
+    const enLaCalle=loansLinea.reduce((s,l)=>{
+      if(l.saldado)return s;
+      const cobrado=totalPagado(l);
+      return s+Math.max(0,l.monto-cobrado);
+    },0);
+    const disponible=Math.max(0,capInicial-enLaCalle);
+
+    // Recuperación
+    const pctRecuperado=capInicial>0?Math.min(100,totalCobrado/capInicial*100):0;
+    const faltaRecuperar=Math.max(0,capInicial-totalCobrado);
+    const yaGanando=totalCobrado>=capInicial;
+
+    // Calcular mes exacto de recupero — suma cuota por cuota
+    let mesRecupero='';
+    if(!yaGanando&&faltaRecuperar>0){
+      let acum=totalCobrado;
+      const cuotasPend=[];
+      loansLinea.forEach(l=>{l.cuotasArr.forEach(c=>{if(!c.pagada)cuotasPend.push({fecha:c.fecha,monto:c.monto});});});
+      cuotasPend.sort((a,b)=>a.fecha.localeCompare(b.fecha));
+      for(const c of cuotasPend){
+        acum+=c.monto;
+        if(acum>=capInicial){
+          const[y,m]=c.fecha.split('-');
+          mesRecupero=new Date(parseInt(y),parseInt(m)-1,1).toLocaleString('es',{month:'long',year:'numeric'});
+          break;
+        }
+      }
+    }
+
+    // Ganancia cobrada
+    const gananciaCobrada=Math.max(0,totalCobrado-capInicial);
+    const gananciaInv=gananciaCobrada*inv.profitPct;
+    const gananciaKarni=gananciaCobrada*inv.karniPct;
+
+    // Proyección total
+    const totalFinal=totalCobrado+totalPendiente;
+    const gananciaProyTotal=Math.max(0,totalFinal-capInicial);
+    const gananciaInvProy=gananciaProyTotal*inv.profitPct;
+    const gananciaKarniProy=gananciaProyTotal*inv.karniPct;
+
+    // Esta semana, este mes, próximo mes — exacto por fecha
+    const hoyStr=today();
+    const finSemanaStr=addDays(hoyStr,7);
+    const ahora=new Date();
+    const mesActualKey=ahora.toISOString().slice(0,7);
+    const proxMesDate=new Date(ahora.getFullYear(),ahora.getMonth()+1,1);
+    const proxMesKey=proxMesDate.toISOString().slice(0,7);
+    let semLinea=0,mesLinea=0,proxMesLinea=0;
+    loansLinea.forEach(l=>{
+      l.cuotasArr.forEach(c=>{
+        if(c.pagada)return;
+        if(c.fecha>=hoyStr&&c.fecha<=finSemanaStr)semLinea+=c.monto;
+        if(c.fecha.slice(0,7)===mesActualKey)mesLinea+=c.monto;
+        if(c.fecha.slice(0,7)===proxMesKey)proxMesLinea+=c.monto;
+      });
+    });
+
+    // Ganancia del mes / próximo mes (solo si ya se recuperó el capital)
+    // Si todavía falta recuperar, esos montos se usan para recuperar primero
+    let gananciaDelMes=0,gananciaProxMes=0;
+    if(yaGanando){
+      gananciaDelMes=mesLinea;
+      gananciaProxMes=proxMesLinea;
+    } else {
+      // Calcular si este mes / próx mes se pasa el capital, la diferencia es ganancia
+      const despuesDelMes=totalCobrado+mesLinea;
+      if(despuesDelMes>capInicial)gananciaDelMes=despuesDelMes-capInicial;
+      const despuesProxMes=despuesDelMes+proxMesLinea;
+      if(despuesProxMes>capInicial){
+        gananciaProxMes=despuesProxMes-Math.max(capInicial,despuesDelMes);
+      }
+    }
+
+    // Repartir ganancia del mes entre socios según % (L3 incluye David 20%)
+    const davidPctL3=inv.linea==3?0.20:0;
+    const gMesInv=gananciaDelMes*inv.profitPct;
+    const gMesKarni=gananciaDelMes*inv.karniPct;
+    const gMesDavid=gananciaDelMes*davidPctL3;
+    const gProxInv=gananciaProxMes*inv.profitPct;
+    const gProxKarni=gananciaProxMes*inv.karniPct;
+    const gProxDavid=gananciaProxMes*davidPctL3;
+
+    // Ganancia proyectada reparto (L3 incluye David 20%)
+    const gananciaDavidProy=gananciaProyTotal*davidPctL3;
+
+    // WA mensaje
+    const fechaHoy=new Date().toLocaleDateString('es-AR');
+    const waLines=[
+      `📊 *Resumen CRÉDITOS KRN — ${inv.nombre}*`,
+      `📅 ${fechaHoy}`,``,
+      `💰 Capital inicial: ${fmt$(capInicial)}`,
+      `📤 Total prestado: ${fmt$(totalPrestado)}`,``,
+      `✅ Total cobrado: ${fmt$(totalCobrado)}`,
+      `  ↳ Recupero: ${Math.round(pctRecuperado)}% de ${fmt$(capInicial)}`,
+      yaGanando
+        ?`  ↳ ✅ ¡Capital recuperado!`
+        :`  ↳ ⏳ Falta recuperar: ${fmt$(faltaRecuperar)}${mesRecupero?' · Se recupera en '+mesRecupero:''}`,``,
+      `💸 En la calle: ${fmt$(enLaCalle)}`,
+      `💵 Disponible para prestar: ${fmt$(disponible)}`,
+      `⏳ Pendiente total: ${fmt$(totalPendiente)}`,``,
+      `📅 Entra esta semana: ${fmt$(semLinea)}`,
+      `📅 Entra este mes: ${fmt$(mesLinea)}`,
+      `📅 Entra próximo mes: ${fmt$(proxMesLinea)}`,``,
+      yaGanando||gananciaDelMes>0?`💰 *Ganancia este mes:* ${fmt$(gananciaDelMes)}${gananciaDelMes>0?`\n  • ${inv.nombre} (${Math.round(inv.profitPct*100)}%): ${fmt$(gMesInv)}${inv.karniPct>0?`\n  • Karni (${Math.round(inv.karniPct*100)}%): ${fmt$(gMesKarni)}`:''}${davidPctL3>0?`\n  • David (${Math.round(davidPctL3*100)}%): ${fmt$(gMesDavid)}`:''}`:''}`:`⏳ *Sin ganancia aún* — recuperando capital`,
+      yaGanando||gananciaProxMes>0?`💰 *Ganancia próximo mes:* ${fmt$(gananciaProxMes)}${gananciaProxMes>0?`\n  • ${inv.nombre}: ${fmt$(gProxInv)}${inv.karniPct>0?`\n  • Karni: ${fmt$(gProxKarni)}`:''}${davidPctL3>0?`\n  • David: ${fmt$(gProxDavid)}`:''}`:''}`:'',``,
+      `📈 *Ganancia proyectada total:* ${fmt$(gananciaProyTotal)}`,
+      `  • ${inv.nombre} (${Math.round(inv.profitPct*100)}%): ${fmt$(gananciaInvProy)}`,
+      inv.karniPct>0?`  • Karni (${Math.round(inv.karniPct*100)}%): ${fmt$(gananciaKarniProy)}`:'',
+      davidPctL3>0?`  • David (${Math.round(davidPctL3*100)}%): ${fmt$(gananciaDavidProy)}`:'',
+    ].filter(l=>l!=='').join('\n');
+    const waMsg=encodeURIComponent(waLines);
+
+    return`<div class="inv-card" style="border-left:3px solid ${inv.color};">
+      <div class="inv-header">
+        <div class="inv-name" style="color:${inv.color}">${inv.nombre}</div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-outline" style="padding:5px 10px;font-size:0.72rem;" onclick="editCapitalInicial('${inv.key}')">✏️ Capital</button>
+          <a href="https://wa.me/?text=${waMsg}" target="_blank" class="btn btn-outline" style="padding:5px 10px;font-size:0.72rem;text-decoration:none;">📱 WA</a>
+        </div>
+      </div>
+      ${capInicial>0?`
+      <div style="margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:6px;">
+          <span style="color:var(--muted)">Capital inicial</span><span style="font-weight:700">${fmt$(capInicial)}</span>
+        </div>
+        <div class="cuota-bar-track"><div class="cuota-bar-fill" style="width:${pctRecuperado}%;background:${inv.color}"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:var(--muted);margin-top:4px;">
+          <span>Recuperado ${Math.round(pctRecuperado)}%</span>
+          <span>${fmt$(Math.min(totalCobrado,capInicial))} / ${fmt$(capInicial)}</span>
+        </div>
+        ${yaGanando
+          ?`<div style="margin-top:6px;padding:6px 10px;background:rgba(16,185,129,0.15);border-radius:8px;font-size:0.75rem;color:var(--green);font-weight:700;">✅ ¡Capital recuperado!</div>`
+          :`<div style="margin-top:6px;padding:6px 10px;background:rgba(240,180,41,0.1);border-radius:8px;font-size:0.75rem;color:var(--gold);">⏳ Falta recuperar ${fmt$(faltaRecuperar)}${mesRecupero?' · Se recupera en '+mesRecupero:''}</div>`
+        }
+      </div>`:`<div style="margin-bottom:10px;padding:8px;background:var(--s2);border-radius:8px;font-size:0.78rem;color:var(--muted);cursor:pointer;" onclick="editCapitalInicial('${inv.key}')">📌 Tocá "✏️ Capital" para cargar el capital inicial</div>`}
+      <div class="inv-grid" style="margin-bottom:8px;">
+        <div class="inv-stat"><div class="inv-stat-lbl">Prestado</div><div class="inv-stat-val">${fmt$(totalPrestado)}</div></div>
+        <div class="inv-stat"><div class="inv-stat-lbl">Cobrado</div><div class="inv-stat-val" style="color:var(--green)">${fmt$(totalCobrado)}</div></div>
+        <div class="inv-stat"><div class="inv-stat-lbl">Pendiente</div><div class="inv-stat-val" style="color:var(--gold)">${fmt$(totalPendiente)}</div></div>
+      </div>
+      <div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;">
+        <div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0;">
+          <span style="color:var(--muted)">En la calle</span><span style="font-weight:700">${fmt$(enLaCalle)}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:4px 0 2px;border-top:1px solid var(--border);margin-top:4px;">
+          <span style="color:var(--teal);font-weight:700">Disponible para prestar</span>
+          <span style="color:var(--teal);font-weight:800">${fmt$(disponible)}</span>
+        </div>
+      </div>
+      ${yaGanando||gananciaDelMes>0?`<div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:10px;padding:10px;margin-bottom:8px;">
+        <div style="font-size:0.6rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">💰 Ganancia este mes</div>
+        <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:2px 0;"><span>Total</span><span style="font-weight:800;color:var(--green)">${fmt$(gananciaDelMes)}</span></div>
+        ${gananciaDelMes>0?`
+          <div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0;border-top:1px solid var(--border);margin-top:4px;padding-top:4px;"><span style="color:${inv.color}">${inv.nombre} (${Math.round(inv.profitPct*100)}%)</span><span style="font-weight:700;color:${inv.color}">${fmt$(gMesInv)}</span></div>
+          ${inv.karniPct>0?`<div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0;"><span style="color:var(--blue)">Karni (${Math.round(inv.karniPct*100)}%)</span><span style="font-weight:700;color:var(--blue)">${fmt$(gMesKarni)}</span></div>`:''}
+          ${davidPctL3>0?`<div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0;"><span style="color:var(--gold)">David (${Math.round(davidPctL3*100)}%)</span><span style="font-weight:700;color:var(--gold)">${fmt$(gMesDavid)}</span></div>`:''}
+        `:''}
+      </div>`:`<div style="background:rgba(240,180,41,0.08);border:1px solid rgba(240,180,41,0.2);border-radius:10px;padding:10px;margin-bottom:8px;font-size:0.8rem;color:var(--gold);text-align:center;">⏳ Sin ganancia aún — recuperando capital</div>`}
+
+      ${yaGanando||gananciaProxMes>0?`<div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:10px;margin-bottom:8px;">
+        <div style="font-size:0.6rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">💰 Ganancia próximo mes</div>
+        <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:2px 0;"><span>Total</span><span style="font-weight:800;color:var(--blue)">${fmt$(gananciaProxMes)}</span></div>
+        ${gananciaProxMes>0?`
+          <div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0;border-top:1px solid var(--border);margin-top:4px;padding-top:4px;"><span style="color:${inv.color}">${inv.nombre} (${Math.round(inv.profitPct*100)}%)</span><span style="font-weight:700;color:${inv.color}">${fmt$(gProxInv)}</span></div>
+          ${inv.karniPct>0?`<div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0;"><span style="color:var(--blue)">Karni (${Math.round(inv.karniPct*100)}%)</span><span style="font-weight:700;color:var(--blue)">${fmt$(gProxKarni)}</span></div>`:''}
+          ${davidPctL3>0?`<div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0;"><span style="color:var(--gold)">David (${Math.round(davidPctL3*100)}%)</span><span style="font-weight:700;color:var(--gold)">${fmt$(gProxDavid)}</span></div>`:''}
+        `:''}
+      </div>`:''}
+
+      <div style="display:flex;gap:6px;margin-bottom:6px;">
+        <div style="flex:1;padding:8px;background:var(--s2);border-radius:8px;text-align:center;"><div style="font-size:0.58rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:2px;">Esta semana</div><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--teal)">${fmt$(semLinea)}</div></div>
+        <div style="flex:1;padding:8px;background:var(--s2);border-radius:8px;text-align:center;"><div style="font-size:0.58rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:2px;">Este mes</div><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--teal)">${fmt$(mesLinea)}</div></div>
+        <div style="flex:1;padding:8px;background:var(--s2);border-radius:8px;text-align:center;"><div style="font-size:0.58rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:2px;">Próx. mes</div><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--blue)">${fmt$(proxMesLinea)}</div></div>
+      </div>
+
+      <div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:4px;">
+        <div style="font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">📈 Ganancia proyectada total</div>
+        <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:2px 0;"><span>Total</span><span style="font-weight:800;color:var(--green)">${fmt$(gananciaProyTotal)}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0;border-top:1px solid var(--border);margin-top:4px;padding-top:4px;"><span style="color:${inv.color}">${inv.nombre} (${Math.round(inv.profitPct*100)}%)</span><span style="font-weight:700;color:${inv.color}">${fmt$(gananciaInvProy)}</span></div>
+        ${inv.karniPct>0?`<div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0;"><span style="color:var(--blue)">Karni (${Math.round(inv.karniPct*100)}%)</span><span style="font-weight:700;color:var(--blue)">${fmt$(gananciaKarniProy)}</span></div>`:''}
+        ${davidPctL3>0?`<div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0;"><span style="color:var(--gold)">David (${Math.round(davidPctL3*100)}%)</span><span style="font-weight:700;color:var(--gold)">${fmt$(gananciaDavidProy)}</span></div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML=html;
+}
+
+function renderEspera(){
+  const el=document.getElementById('invPanel');
+  el.innerHTML=`<button class="btn btn-teal btn-full" style="margin-bottom:14px;" onclick="document.getElementById('modalEspera').classList.add('open')">+ Agregar a espera</button>`+
+  (espera.length?espera.map((e,i)=>`<div class="espera-item">
+    <div><div style="font-weight:700">${e.nombre}</div><div style="font-size:0.75rem;color:var(--muted)">${fmt$(e.monto)} · Línea ${e.linea}${e.notas?' · '+e.notas:''}</div></div>
+    <button class="btn btn-red" style="padding:6px 10px;" onclick="quitarEspera(${i})">✕</button>
+  </div>`).join(''):'<div style="color:var(--muted);padding:16px 0;font-size:0.85rem">Sin clientes en espera</div>');
+}
+function guardarEspera(){
+  const nombre=document.getElementById('esp-nombre').value.trim();
+  const monto=parseFloat(document.getElementById('esp-monto').value);
+  if(!nombre)return;
+  espera.push({nombre,monto:monto||0,linea:document.getElementById('esp-linea').value,notas:document.getElementById('esp-notas').value,fecha:today()});
+  save();closeModal('modalEspera');renderInversores();
+}
+function quitarEspera(i){espera.splice(i,1);save();renderInversores();}
+
+function renderBlacklist(){
+  const el=document.getElementById('invPanel');
+  el.innerHTML=`<button class="btn btn-red btn-full" style="margin-bottom:14px;" onclick="addBlacklistManual()">+ Agregar a blacklist</button>`+
+  (blacklist.length?blacklist.map((b,i)=>`<div class="bl-item">
+    <div><div style="font-weight:700;color:var(--red)">${b.nombre}</div><div style="font-size:0.75rem;color:var(--muted)">${b.motivo} · ${fmtDate(b.fecha)}</div></div>
+    <button class="btn btn-outline" style="padding:6px 10px;" onclick="quitarBlacklist(${i})">✕</button>
+  </div>`).join(''):'<div style="color:var(--muted);padding:16px 0;font-size:0.85rem">Sin clientes en blacklist</div>');
+}
+function addBlacklistManual(){const nombre=prompt('Nombre del cliente:');if(!nombre)return;const motivo=prompt('Motivo:')||'Sin especificar';blacklist.push({nombre,motivo,fecha:today()});save();renderInversores();}
+function quitarBlacklist(i){blacklist.splice(i,1);save();renderInversores();}
+
+function renderGastos(){
+  const el=document.getElementById('invPanel');
+  const totalGastos=gastos.reduce((s,g)=>s+g.monto,0);
+  const totalCobrado=loans.reduce((s,l)=>s+totalPagado(l),0);
+  el.innerHTML=`<button class="btn btn-teal btn-full" style="margin-bottom:14px;" onclick="document.getElementById('modalGasto').classList.add('open')">+ Registrar gasto</button>
+  <div class="stat-grid" style="margin-bottom:14px;">
+    <div class="stat-card"><div class="stat-lbl">Total gastos</div><div class="stat-num" style="color:var(--red)">${fmt$(totalGastos)}</div></div>
+    <div class="stat-card"><div class="stat-lbl">Ganancia neta</div><div class="stat-num" style="color:var(--green)">${fmt$(totalCobrado-totalGastos)}</div></div>
+  </div>`+
+  (gastos.length?gastos.slice().reverse().map(g=>`<div class="gasto-item">
+    <div><div style="font-weight:700">${g.desc}</div><div style="font-size:0.75rem;color:var(--muted)">${fmtDate(g.fecha)}</div></div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red)">${fmt$(g.monto)}</div>
+  </div>`).join(''):'<div style="color:var(--muted);font-size:0.85rem">Sin gastos registrados</div>');
+}
+function guardarGasto(){
+  const desc=document.getElementById('gasto-desc').value.trim();
+  const monto=parseFloat(document.getElementById('gasto-monto').value);
+  if(!desc||!monto)return;
+  gastos.push({desc,monto,fecha:document.getElementById('gasto-fecha').value||today()});
+  save();closeModal('modalGasto');renderGastos();
+}
+
+function renderStats(){
+  const el=document.getElementById('statsPanel');
+  if(statsTab==='general'){
+    const totalCap=loans.reduce((s,l)=>s+l.monto,0);
+    const totalCob=loans.reduce((s,l)=>s+totalPagado(l),0);
+    const rentab=totalCap>0?(totalCob/totalCap-1)*100:0;
+    const ticketProm=loans.length?totalCap/loans.length:0;
+    el.innerHTML=`<div class="stat-grid">
+      <div class="stat-card"><div class="stat-lbl">Capital total</div><div class="stat-num">${fmt$(totalCap)}</div></div>
+      <div class="stat-card"><div class="stat-lbl">Rentabilidad</div><div class="stat-num" style="color:var(--teal)">${pct(rentab)}</div></div>
+      <div class="stat-card"><div class="stat-lbl">Ticket prom.</div><div class="stat-num">${fmt$(ticketProm)}</div></div>
+      <div class="stat-card"><div class="stat-lbl">Préstamos activos</div><div class="stat-num" style="color:var(--blue)">${loans.filter(l=>!l.saldado).length}</div></div>
+      <div class="stat-card"><div class="stat-lbl">Saldados</div><div class="stat-num" style="color:var(--green)">${loans.filter(l=>l.saldado).length}</div></div>
+      <div class="stat-card"><div class="stat-lbl">Total préstamos</div><div class="stat-num">${loans.length}</div></div>
+    </div>`;
+  } else if(statsTab==='clientes'){
+    const ranking=loans.map(l=>({nombre:l.nombre,pctPago:l.cuotasArr.length?l.cuotasArr.filter(c=>c.pagada).length/l.cuotasArr.length:0,sem:l.sem})).sort((a,b)=>b.pctPago-a.pctPago);
+    el.innerHTML=`<div class="sec-title">Ranking clientes</div>`+ranking.map((r,i)=>`<div class="loan-card" style="cursor:default;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div><span style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--muted);margin-right:8px;">#${i+1}</span><strong>${r.nombre}</strong></div>
+        <span style="font-weight:700;color:${r.sem==='verde'?'var(--green)':r.sem==='amarillo'?'var(--gold)':'var(--red)'}">${Math.round(r.pctPago*100)}%</span>
+      </div></div>`).join('');
+  } else if(statsTab==='zonas'){
+    const zonas={};loans.forEach(l=>{zonas[l.zona]=(zonas[l.zona]||0)+1;});
+    el.innerHTML=`<div class="sec-title">Clientes por zona</div>`+Object.entries(zonas).map(([z,n])=>`<div class="stat-card" style="margin-bottom:10px;"><div class="stat-lbl">${z}</div><div class="stat-num">${n} clientes</div></div>`).join('');
+  } else {
+    const meses=[];
+    for(let m=0;m<12;m++){const d=new Date(new Date().getFullYear(),m,1);const key=d.toISOString().slice(0,7);let cobrado=0;loans.forEach(l=>l.cuotasArr.forEach(c=>{if(c.pagada&&c.fechaPago&&c.fechaPago.slice(0,7)===key)cobrado+=c.monto;}));meses.push({lbl:d.toLocaleString('es',{month:'short'}),cobrado});}
+    const maxV=Math.max(...meses.map(m=>m.cobrado),1);
+    el.innerHTML=`<div class="sec-title">Resumen anual ${new Date().getFullYear()}</div>
+    <div class="chart-wrap">
+      <div class="chart-bars">${meses.map(m=>`<div class="chart-bar"><div class="chart-bar-fill" style="height:${m.cobrado/maxV*100}%"></div></div>`).join('')}</div>
+      <div class="chart-labels">${meses.map(m=>`<div class="chart-label">${m.lbl}</div>`).join('')}</div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-lbl">Total año</div><div class="stat-num" style="color:var(--teal)">${fmt$(meses.reduce((s,m)=>s+m.cobrado,0))}</div></div>
+      <div class="stat-card"><div class="stat-lbl">Mejor mes</div><div class="stat-num">${meses.find(m=>m.cobrado===Math.max(...meses.map(x=>x.cobrado)))?.lbl||'—'}</div></div>
+      <div class="stat-card"><div class="stat-lbl">Peor mes</div><div class="stat-num">${meses.find(m=>m.cobrado===Math.min(...meses.filter(x=>x.cobrado>0).map(x=>x.cobrado)))?.lbl||'—'}</div></div>
+      <div class="stat-card"><div class="stat-lbl">Prom. mensual</div><div class="stat-num">${fmt$(meses.reduce((s,m)=>s+m.cobrado,0)/12)}</div></div>
+    </div>`;
+  }
+}
+
+function openSimulador(){document.getElementById('modalSimulador').classList.add('open');}
+function simCalc(){
+  const monto=parseFloat(document.getElementById('sim-monto').value);
+  const mod=document.getElementById('sim-mod').value;
+  const cuotas=parseInt(document.getElementById('sim-cuotas').value);
+  const res=document.getElementById('simResult');
+  if(!monto||!cuotas){res.classList.remove('show');return;}
+  const{tasa,nivel}=getTasa(monto,mod,cuotas);
+  if(!tasa){res.classList.remove('show');return;}
+  const total=monto*(1+tasa/100);
+  const cuota=total/(mod==='semanal'?1:cuotas);
+  document.getElementById('sim-nivel').textContent=nivel;
+  document.getElementById('sim-tasa').textContent=pct(tasa);
+  document.getElementById('sim-total').textContent=fmt$(total);
+  document.getElementById('sim-cuota').textContent=fmt$(cuota);
+  res.classList.add('show');
+}
+
+function editEfectivo(){document.getElementById('efectivoMonto').value=efectivo;document.getElementById('modalEfectivo').classList.add('open');}
+function guardarEfectivo(){efectivo=parseFloat(document.getElementById('efectivoMonto').value)||0;save();closeModal('modalEfectivo');renderDashboard();}
+
+function goScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('screen-'+name)?.classList.add('active');
+  const navItems=document.querySelectorAll('.nav-item');
+  const idx=['inicio','prestamos','inversores','stats','alertas'].indexOf(name);
+  if(idx>=0)navItems[idx]?.classList.add('active');
+  document.getElementById('fabBtn').style.display=name==='prestamos'?'flex':'none';
+  if(name==='inicio')renderDashboard();
+  if(name==='prestamos')renderLoans();
+  if(name==='inversores')renderInversores();
+  if(name==='stats')renderStats();
+  if(name==='alertas')renderAlertas();
+  vibrate([8]);
+}
+
+function setFilter(f,el){currentFilter=f;document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderLoans();}
+function setInvTab(t,el){invTab=t;document.querySelectorAll('.tabs .tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');renderInversores();}
+function setStatsTab(t,el){statsTab=t;document.querySelectorAll('#screen-stats .tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');renderStats();}
+
+function openNuevo(){
+  editandoId=null;
+  document.getElementById('modalNuevoTitulo').textContent='Nuevo Préstamo';
+  document.getElementById('n-fecha').value=today();
+  document.getElementById('modalNuevo').classList.add('open');
+  vibrate([10]);
+}
+
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
+
+function togglePanic(){
+  panicMode=!panicMode;
+  document.getElementById('panicoScreen').className=panicMode?'on':'';
+  if(panicMode){vibrate([50,20,50]);setTimeout(()=>{panicMode=false;document.getElementById('panicoScreen').className='';},5000);}
+}
+
+function toggleModoClaro(){
+  modoClaro=!modoClaro;
+  document.documentElement.style.setProperty('--bg',modoClaro?'#f8fafc':'#080a0f');
+  document.documentElement.style.setProperty('--s1',modoClaro?'#ffffff':'#0f1218');
+  document.documentElement.style.setProperty('--s2',modoClaro?'#f1f5f9':'#161c26');
+  document.documentElement.style.setProperty('--s3',modoClaro?'#e2e8f0':'#1e2535');
+  document.documentElement.style.setProperty('--text',modoClaro?'#0f172a':'#e2e8f0');
+  document.documentElement.style.setProperty('--border',modoClaro?'#e2e8f0':'#252d3d');
+}
+
+function confetti(){
+  const colors=['#00b4a0','#f0b429','#3b82f6','#10b981','#ef4444'];
+  for(let i=0;i<40;i++){
+    const el=document.createElement('div');el.className='confetti-piece';
+    el.style.cssText=`left:${Math.random()*100}vw;top:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>0.5?'50%':'2px'};animation-delay:${Math.random()*0.5}s;animation-duration:${1+Math.random()}s;`;
+    document.body.appendChild(el);setTimeout(()=>el.remove(),2000);
+  }
+}
+
+function vibrate(pattern){if(navigator.vibrate)navigator.vibrate(pattern);}
+let ctx;
+function getCtx(){if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)();return ctx;}
+function playTone(freq,type,vol,dur){try{const c=getCtx();const osc=c.createOscillator();const g=c.createGain();osc.connect(g);g.connect(c.destination);osc.type=type||'sine';osc.frequency.setValueAtTime(freq,c.currentTime);g.gain.setValueAtTime(vol||0.1,c.currentTime);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+(dur||0.2));osc.start();osc.stop(c.currentTime+(dur||0.2));}catch(e){}}
+function playSuccess(){playTone(523,'sine',0.1,0.1);setTimeout(()=>playTone(659,'sine',0.1,0.15),100);}
+function playError(){playTone(220,'sawtooth',0.1,0.3);}
+
+async function initNotif(){if(!('Notification'in window))return;if(Notification.permission==='default')await Notification.requestPermission();}
+function checkNotifications(){
+  if(!('Notification'in window)||Notification.permission!=='granted')return;
+  const hoy=today();const vencenHoy=[],vencidos=[];
+  loans.forEach(l=>{if(l.saldado)return;l.cuotasArr.forEach(c=>{if(c.pagada)return;if(c.fecha===hoy)vencenHoy.push(`${l.nombre} · ${fmt$(c.monto)}`);if(c.fecha<hoy)vencidos.push(l.nombre);});});
+  if(vencenHoy.length)new Notification('🔔 CKRNapp — Vencen HOY',{body:vencenHoy.join('\n')});
+  if(vencidos.length)new Notification('🚨 CKRNapp — Préstamos vencidos',{body:[...new Set(vencidos)].join(', ')});
+}
+function toggleNotif(){}
+
+function renderAll(){renderDashboard();renderLoans();renderInversores();renderStats();renderAlertas();}
+
+function initApp(){
+  document.getElementById('fabBtn').style.display='none';
+  initNotif();checkNotifications();renderAll();goScreen('inicio');
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('loginScreen')&&!document.getElementById('loginScreen').classList.contains('hidden'))doLogin();});
+</script>
+</body>
+</html>
